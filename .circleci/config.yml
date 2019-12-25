@@ -1,18 +1,44 @@
-# Source: https://angular.io/guide/testing#configure-project-for-circle-ci
+# Source: 
+https://dev.to/obinnaogbonnajoseph/circle-ci-test-configuration-for-angular-projects-1o2p
+
 version: 2
+
 jobs:
-  build:
-    working_directory: ~/my-project
-    docker:
-      - image: circleci/node:10-browsers
-    steps:
-      - checkout
-      - restore_cache:
-          key: my-project-{{ .Branch }}-{{ checksum "package-lock.json" }}
-      - run: npm install
-      - save_cache:
-          key: my-project-{{ .Branch }}-{{ checksum "package-lock.json" }}
-          paths:
-            - "node_modules"
-      - run: npm run test -- --no-watch --no-progress --browsers=ChromeHeadlessCI
-      - run: npm run e2e -- --protractor-config=e2e/protractor-ci.conf.js
+		# The test job
+		test:
+				working_directory: ~/project-name
+				docker:
+						- image: circleci/node:10-browsers
+				steps:
+						# Checkout the code from the branch into the working_directory
+						- checkout
+						# Log the current branch
+						- run:
+								name: Show current branch
+								command: echo ${CIRCLE_BRANCH}
+						# Restore local dependencies from cache
+						- restore_cache:
+								keys:
+								- v1-dependencies-{{ checksum "package-lock.json" }}
+								- v1-dependencies-
+						# Install project dependencies
+						- run:
+								name: Install local dependencies
+								command: npm install
+						# Cache local dependencies if they don't exist
+						- save_cache:
+								key: v1-dependencies-{{ checksum "package-lock.json" }}
+								paths:
+										- node_modules
+						# Lint the source code
+						- run:
+								name: Linting
+								command: npm run lint
+						# Test the source code
+						- run:
+								name: Testing
+								command: npm run test -- --no-watch --no-progress --browsers=ChromeHeadlessCI
+						# End to End test
+						- run:
+								name: End to End Test
+								command: npm run e2e -- --protractor-config=e2e/protractor-ci.conf.js
