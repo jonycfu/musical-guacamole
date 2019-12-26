@@ -124,6 +124,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "hangman"
+    }
+  },
+  "defaultProject": "hangman",
+  "cli": {
+    "defaultCollection": "@ngrx/schematics"
+  }
 }

@@ -18,9 +18,13 @@
 
 ## Development Lifecycle
 
-To work on the app directly, you will need to run the angular cli `ng serve` for a dev server in addition to starting the Express App. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+After installing your dependencies (`npm i`), there are three necessary steps:
 
-To have tests run during development, run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+1. First, serve your express-api-server, run `npm run api`
+
+2. To work on the app directly, you will need to run `npm start`, which is modified for serving the Angular app which calls api calls from the Express App. Navigate to `http://localhost:4200/`.
+
+3. To have tests run during development, run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io). Newly added modules/files/dependencies may require a process restart.
 
 ## Coding Guidelines
 
