@@ -5,7 +5,11 @@ export class AppPage {
     return browser.get(browser.baseUrl) as Promise<any>;
   }
 
-  getTitleText() {
-    return element(by.css('app-root .content span')).getText() as Promise<string>;
+  getMenuTextList(idx) {
+    const menuList = by.css('app-list li');
+    return element
+      .all(menuList)
+      .get(idx)
+      .getText() as Promise<string>;
   }
 }
