@@ -4,10 +4,10 @@ import {
   createFeatureSelector,
   createSelector,
   MetaReducer
-} from "@ngrx/store";
-import { environment } from "../../../environments/environment";
+} from '@ngrx/store';
+import { environment } from '../../../environments/environment';
 
-export const gameFeatureKey = "game";
+export const gameFeatureKey = 'game';
 
 export interface State {}
 
