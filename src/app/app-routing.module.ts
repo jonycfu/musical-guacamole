@@ -15,7 +15,8 @@ const routes: Routes = [
     path: "",
     redirectTo: "start-menu",
     pathMatch: "full"
-  }
+  },
+  { path: 'game', loadChildren: () => import('./game/game.module').then(m => m.GameModule) }
 ];
 
 @NgModule({
