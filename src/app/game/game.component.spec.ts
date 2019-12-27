@@ -1,3 +1,4 @@
+import { provideMockStore, MockStore } from '@ngrx/store/testing';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { GameComponent } from './game.component';
@@ -8,9 +9,9 @@ describe('GameComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ GameComponent ]
-    })
-    .compileComponents();
+      declarations: [GameComponent],
+      providers: [provideMockStore({})],
+    }).compileComponents();
   }));
 
   beforeEach(() => {
