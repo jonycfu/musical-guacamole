@@ -22,5 +22,5 @@ export const loadWords = createAction(GameActionTypes.LoadWordApis);
 
 export const loadWordsSuccess = createAction(
   GameActionTypes.LoadWordApisSuccess,
-  props<{ payload: string[] }>()
+  props<{ payload: any }>()
 );

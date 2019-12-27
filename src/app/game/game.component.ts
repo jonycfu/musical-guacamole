@@ -2,7 +2,12 @@ import { GameActionTypes } from './actions/game.actions';
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Store, select } from '@ngrx/store';
-import { IGameState, IAppState, getRandomWord } from './reducers/game.reducer';
+import {
+  IGameState,
+  IAppState,
+  getRandomWord,
+  getMaskedWord,
+} from './reducers/game.reducer';
 
 @Component({
   selector: 'app-game',
@@ -11,7 +16,7 @@ import { IGameState, IAppState, getRandomWord } from './reducers/game.reducer';
 })
 export class GameComponent implements OnInit {
   randomWord$: Observable<string> = this.store.select(getRandomWord);
-  wordList: string[];
+  maskedWord$: Observable<string[]> = this.store.select(getMaskedWord);
   constructor(private store: Store<{}>) {}
 
   ngOnInit() {

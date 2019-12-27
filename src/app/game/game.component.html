@@ -1,4 +1,5 @@
 <p>Secret Word: {{ randomWord$ | async }}</p>
-<ul>
-  <li *ngFor="let item of wordList$ | async">{{ item }}</li>
-</ul>
+<section>
+  <strong>Placeholder Blanks:</strong>
+  <span *ngFor="let wordLetter of maskedWord$ | async">{{ wordLetter }}</span>
+</section>

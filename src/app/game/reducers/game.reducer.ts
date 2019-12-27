@@ -11,6 +11,7 @@ import * as GameActions from './../actions/game.actions';
 export const gameFeatureKey = 'game';
 
 export interface IGameState {
+  maskedWordProgression: string[] | null;
   secretWord: string | null;
   wordList: Array<string>;
   gameOver: boolean;
@@ -23,6 +24,7 @@ export interface IAppState {
 }
 
 export const initialState: IGameState = {
+  maskedWordProgression: null,
   secretWord: null,
   wordList: [],
   gameOver: false,
@@ -38,12 +40,15 @@ const gameReducer = createReducer(
     guesses: state.guesses + 1,
   })),
   on(GameActions.gameOver, state => ({ ...state, gameOver: true })),
-  on(GameActions.loadWords, state => ({ ...state })),
   on(GameActions.loadWordsSuccess, (state, { payload }) => {
+    const secretWord = payload[Math.floor(Math.random() * payload.length)];
+    const maskedWord = secretWord.replace(/./g, '_').split('');
+
     return {
       ...state,
       wordList: payload,
-      secretWord: payload[Math.floor(Math.random() * payload.length)],
+      secretWord,
+      maskedWordProgression: maskedWord,
     };
   }),
   on(GameActions.resetGuesses, state => initialState)
@@ -59,4 +64,8 @@ const getGameFeatureState = createFeatureSelector<IAppState>('game');
 
 export const getRandomWord = createSelector(getGameFeatureState, state => {
   return state.game.secretWord;
+});
+
+export const getMaskedWord = createSelector(getGameFeatureState, state => {
+  return state.game.maskedWordProgression;
 });
