@@ -2,7 +2,7 @@ import { GameActionTypes } from './actions/game.actions';
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Store, select } from '@ngrx/store';
-import { getWordList } from './reducers/game.reducer';
+import { IGameState, IAppState, getRandomWord } from './reducers/game.reducer';
 
 @Component({
   selector: 'app-game',
@@ -10,20 +10,11 @@ import { getWordList } from './reducers/game.reducer';
   styleUrls: ['./game.component.scss'],
 })
 export class GameComponent implements OnInit {
-  wordList$: Observable<string[]> = this.store.select(getWordList);
-  randomWord: string | null;
+  randomWord$: Observable<string> = this.store.select(getRandomWord);
   wordList: string[];
-  constructor(
-    private store: Store<{ wordList: Array<string>; secretWord: string }>
-  ) {}
+  constructor(private store: Store<{}>) {}
 
   ngOnInit() {
-    //Outgoing Effects dispatch for HTTP Request via service
     this.store.dispatch({ type: GameActionTypes.LoadWordApis });
-    // this.store.pipe(select(getWordList)).subscribe(wordList => {
-    //   console.log(wordList);
-
-    //   // this.wordList = wordList;
-    // });
   }
 }

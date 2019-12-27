@@ -18,6 +18,10 @@ export interface IGameState {
   maxGuesses: number;
 }
 
+export interface IAppState {
+  game: IGameState;
+}
+
 export const initialState: IGameState = {
   secretWord: null,
   wordList: [],
@@ -39,6 +43,7 @@ const gameReducer = createReducer(
     return {
       ...state,
       wordList: payload,
+      secretWord: payload[Math.floor(Math.random() * payload.length)],
     };
   }),
   on(GameActions.resetGuesses, state => initialState)
@@ -50,26 +55,8 @@ export function reducer(state, action: Action): IGameState {
 }
 
 /* Selectors */
-export const getGameFeatureState = createFeatureSelector<IGameState>('game');
+const getGameFeatureState = createFeatureSelector<IAppState>('game');
 
-export const getGameGuesses = createSelector(
-  getGameFeatureState,
-  state => state.guesses
-);
-export const getGameMaxGuessLimit = createSelector(
-  getGameFeatureState,
-  state => state.maxGuesses
-);
-
-export const getWordList = createSelector(
-  getGameFeatureState,
-  (state: any) => state.game.wordList
-);
-export const getRandomWord = createSelector(
-  getGameFeatureState,
-  getWordList,
-  (state, wordList) => {
-    const randomizedIndex = Math.floor(Math.random() * wordList.length);
-    return wordList[randomizedIndex];
-  }
-);
+export const getRandomWord = createSelector(getGameFeatureState, state => {
+  return state.game.secretWord;
+});

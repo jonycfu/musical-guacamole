@@ -1,3 +1,4 @@
+import { provideMockStore } from '@ngrx/store/testing';
 import { WordApiService } from './../../core/services/word-api.service';
 import { TestBed, async } from '@angular/core/testing';
 import { provideMockActions } from '@ngrx/effects/testing';
@@ -9,6 +10,7 @@ describe('GameEffects', () => {
   let actions$: Observable<any>;
   let effects: GameEffects;
   let wordApiService: WordApiService;
+  const initialState = { game: {} };
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -16,8 +18,9 @@ describe('GameEffects', () => {
         GameEffects,
         {
           provide: WordApiService,
-          useValue: { getSecretWord: () => {} },
+          useValue: { getSecretWordList: () => {} },
         },
+        provideMockStore({ initialState }),
         provideMockActions(() => actions$),
       ],
     });
@@ -30,9 +33,9 @@ describe('GameEffects', () => {
     expect(effects).toBeTruthy();
   });
 
-  it('should fetch a secret word with getSecretWord', async(() => {
+  it('should fetch a secret word with getSecretWordList', async(() => {
     actions$ = of({ type: '[Game Page] Get Secret Word' });
-    spyOn(wordApiService, 'getSecretWord').and.returnValue(of(['3dhubs']));
+    spyOn(wordApiService, 'getSecretWordList').and.returnValue(of(['3dhubs']));
 
     effects.getWordList$.subscribe(action => {
       expect(action).toEqual({

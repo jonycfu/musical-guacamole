@@ -12,8 +12,6 @@ export class WordApiService {
   constructor(private http: HttpClient) {}
 
   public getSecretWordList(): Observable<any> {
-    console.log('calling GET /secret-words');
-
     return this.http.get(`${API_URL}/secret-words`);
   }
 }

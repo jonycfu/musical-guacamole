@@ -16,7 +16,6 @@ const WORD_POOL_LIST = [
 
 server.get('/secret-words', function(req, res, next) {
   res.json({ payload: WORD_POOL_LIST });
-  console.log('Server-side: list sent!');
 });
 
 //TODO: provide dotenv to read $PORT

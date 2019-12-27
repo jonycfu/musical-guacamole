@@ -15,7 +15,7 @@ import { CoreModule } from './core/core.module';
   declarations: [AppComponent],
   imports: [
     BrowserModule,
-    AppRoutingModule,
+    CoreModule,
     EffectsModule.forRoot([]),
     StoreModule.forRoot(reducers, {
       metaReducers,
@@ -24,7 +24,7 @@ import { CoreModule } from './core/core.module';
         strictActionImmutability: true,
       },
     }),
-    CoreModule,
+    AppRoutingModule,
     !environment.production ? StoreDevtoolsModule.instrument() : [],
   ],
   providers: [],

@@ -4,6 +4,7 @@ export enum GameActionTypes {
   LoadWordApisSuccess = '[WordApi] Load Word Api Service Success',
   LoadWordApisFailure = '[WordApi] Load Word Api Service Failure',
   LoadWordApis = '[WordApi] Load Word Api Service',
+  GetRandomWord = '[Game] Get Random Word',
   SetGuessLimit = '[Game] Set Guess Limit',
   MakeGuess = '[Game] Make Guess',
   ResetGuesses = '[Game] Reset Guesses',
