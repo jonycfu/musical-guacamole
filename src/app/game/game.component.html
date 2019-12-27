@@ -1,5 +1,22 @@
-<p>Secret Word: {{ randomWord$ | async }}</p>
-<section>
-  <strong>Placeholder Blanks:</strong>
-  <span *ngFor="let wordLetter of maskedWord$ | async">{{ wordLetter }}</span>
-</section>
+<article class="flex-container">
+  <div>
+    <h1>Hangman Game</h1>
+    <p>Hint: {{ randomWord$ | async }}</p>
+    <section>
+      <app-canvas></app-canvas>
+    </section>
+    <section class="masked-letter-area whole-word">
+      <span
+        class="masked-letter"
+        *ngFor="let wordLetter of maskedWord$ | async"
+        >{{ wordLetter }}</span
+      >
+    </section>
+    <section class="masked-letter-area guessed-letter">
+      Your Guess: {{ guessedLetter || '_' }}
+    </section>
+    <section class="key-input-area">
+      <span *ngFor="let inputLetter of alphanumerics">{{ inputLetter }}</span>
+    </section>
+  </div>
+</article>

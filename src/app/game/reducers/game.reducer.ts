@@ -60,7 +60,7 @@ export function reducer(state, action: Action): IGameState {
 }
 
 /* Selectors */
-const getGameFeatureState = createFeatureSelector<IAppState>('game');
+export const getGameFeatureState = createFeatureSelector<IAppState>('game');
 
 export const getRandomWord = createSelector(getGameFeatureState, state => {
   return state.game.secretWord;

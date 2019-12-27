@@ -1,3 +1,4 @@
+import { CanvasComponent } from './components/canvas/canvas.component';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
@@ -10,7 +11,7 @@ import { GameEffects } from './effects/game.effects';
 import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
-  declarations: [GameComponent],
+  declarations: [GameComponent, CanvasComponent],
   imports: [
     CommonModule,
     HttpClientModule,

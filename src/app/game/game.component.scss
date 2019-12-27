@@ -1,0 +1,17 @@
+.masked-letter-area {
+  padding: 2rem;
+  text-align: center;
+
+  &.whole-word {
+    color: whitesmoke;
+    background: darkslategray;
+  }
+  &.guessed-letter {
+    color: whitesmoke;
+    background: darkcyan;
+  }
+
+  .masked-letter {
+    margin-right: 1rem;
+  }
+}
