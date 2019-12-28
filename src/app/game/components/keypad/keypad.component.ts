@@ -1,6 +1,6 @@
 import { GameActionTypes, setGuess } from './../../actions/game.actions';
-import { IGameState } from './../../reducers/game.reducer';
-import { Store } from '@ngrx/store';
+import * as fromGame from './../../reducers/game.reducer';
+import { Store, select } from '@ngrx/store';
 import { Component, OnInit, Input } from '@angular/core';
 import { ALPHABETS, NUMERALS } from 'src/assets/hangman';
 
@@ -16,7 +16,7 @@ export class KeypadComponent implements OnInit {
   keyInputListTop: string[] = NUMERALS;
   keyInputListBottom: string[] = ALPHABETS;
 
-  constructor(private store: Store<IGameState>) {}
+  constructor(private store: Store<fromGame.IGameState>) {}
 
   ngOnInit() {}
 

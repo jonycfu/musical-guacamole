@@ -17,7 +17,6 @@
   &.guessed-letter,
   &.lives-left-indicator {
     background: darkcyan;
-    max-width: 50%;
     flex-grow: 1;
   }
 
@@ -26,7 +25,19 @@
   }
 }
 
-.current-game-info {
+.current-game-info,
+.main-control-area {
   display: flex;
   flex-direction: row;
+}
+
+.main-control-area {
+  .main-control-btn {
+    color: whitesmoke;
+    font-weight: bold;
+    font-size: 2rem;
+    flex-grow: 1;
+    padding: 1rem 2rem;
+    background-color: darkslateblue;
+  }
 }

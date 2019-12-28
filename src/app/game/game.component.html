@@ -26,8 +26,18 @@
         <span>{{ (maxGuesses$ | async) - (wrongGuesses$ | async) }}</span>
       </section>
     </div>
-    <section class="key-input-area">
-      <app-keypad></app-keypad>
-    </section>
+    <div class="current-game-control">
+      <section class="main-control-area">
+        <button class="main-control-btn" (click)="makeGuess(guess)">
+          Make Guess
+        </button>
+        <button class="main-control-btn" (click)="restartGame()">
+          Restart
+        </button>
+      </section>
+      <section class="key-input-area">
+        <app-keypad></app-keypad>
+      </section>
+    </div>
   </div>
 </article>

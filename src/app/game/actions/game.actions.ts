@@ -7,7 +7,7 @@ export enum GameActionTypes {
   GetRandomWord = '[Game] Get Random Word',
   SetGuess = '[Game] Set Guess',
   MakeGuess = '[Game] Make Guess',
-  ResetGuesses = '[Game] Reset Guesses',
+  RestartGame = '[Game] Restart Game',
   GameOver = '[Game] Over',
 }
 
@@ -17,11 +17,17 @@ export const setGuess = createAction(
   props<{ charInput: string }>()
 );
 
-export const makeGuess = createAction(GameActionTypes.MakeGuess);
+export const makeGuess = createAction(
+  GameActionTypes.MakeGuess,
+  props<{ guess: string }>()
+);
 
-export const gameOver = createAction(GameActionTypes.GameOver);
+export const gameOver = createAction(
+  GameActionTypes.GameOver,
+  props<{ gameOver }>()
+);
 
-export const resetGuesses = createAction(GameActionTypes.ResetGuesses);
+export const restartGame = createAction(GameActionTypes.RestartGame);
 
 export const loadWords = createAction(GameActionTypes.LoadWordApis);
 

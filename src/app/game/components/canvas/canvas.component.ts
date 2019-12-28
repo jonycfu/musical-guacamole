@@ -1,8 +1,4 @@
-import {
-  makeGuess,
-  gameOver,
-  resetGuesses,
-} from './../../actions/game.actions';
+import { makeGuess, gameOver } from './../../actions/game.actions';
 import * as fromGame from './../../reducers/game.reducer';
 import {
   Component,
@@ -28,7 +24,7 @@ export class CanvasComponent implements OnInit, AfterViewInit {
   ctx: CanvasRenderingContext2D;
   hangmanArray: Array<Array<Number>>;
   gallowsArray: Array<Array<Number>>;
-  gameOver: boolean;
+  gameOver: fromGame.EndGameStatus;
   maxGuesses: number;
   totalGuesses: number;
   wrongGuesses: number;
@@ -66,17 +62,17 @@ export class CanvasComponent implements OnInit, AfterViewInit {
   //TODO: Take into consideration that number of guesses may change in future
   guess() {
     // If guesses are within limit
-    if (this.wrongGuesses <= this.maxGuesses) {
-      this.drawHangmanParts();
-      this.store.dispatch(makeGuess());
-      //check for final stroke after dispatch
-      if (this.wrongGuesses > this.maxGuesses) {
-        this.store.dispatch(gameOver());
-        console.log("jim's dead!");
-      }
-    } else {
-      console.log("jim's dead already!");
-    }
+    // if (this.wrongGuesses <= this.maxGuesses) {
+    //   this.drawHangmanParts();
+    //   this.store.dispatch(makeGuess({ guess: '' }));
+    //   //check for final stroke after dispatch
+    //   if (this.wrongGuesses > this.maxGuesses) {
+    //     this.store.dispatch(gameOver());
+    //     console.log("jim's dead!");
+    //   }
+    // } else {
+    //   console.log("jim's dead already!");
+    // }
   }
   //Credit of Hangman Implementation: https://codepen.io/cathydutton/pen/ldazc
   drawGallows() {

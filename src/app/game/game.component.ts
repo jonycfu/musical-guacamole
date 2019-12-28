@@ -1,4 +1,4 @@
-import { GameActionTypes, loadWords } from './actions/game.actions';
+import { loadWords, restartGame, makeGuess } from './actions/game.actions';
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Store, select } from '@ngrx/store';
@@ -17,10 +17,23 @@ export class GameComponent implements OnInit {
   wrongGuesses$: Observable<number> = this.store.select(
     fromGame.getWrongGuesses
   );
+  guess: string = '_';
 
   constructor(private store: Store<fromGame.IGameState>) {}
 
   ngOnInit() {
     this.store.dispatch(loadWords());
+    //Use subscribe for method access to guess prop
+    //TODO: Unsubscribe
+    this.store
+      .pipe(select(fromGame.getGuessChar))
+      .subscribe(guessedChar => (this.guess = guessedChar));
+  }
+  makeGuess(guess) {
+    this.store.dispatch(makeGuess({ guess }));
+  }
+  restartGame() {
+    //TODO: Confirm Dialog, needed!
+    this.store.dispatch(restartGame());
   }
 }

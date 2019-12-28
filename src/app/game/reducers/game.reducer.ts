@@ -8,13 +8,20 @@ import {
 
 import * as GameActions from './../actions/game.actions';
 
+/* interfaces, statics */
 export const gameFeatureKey = 'game';
+
+export enum EndGameStatus {
+  INACTIVE = 'INACTIVE',
+  SUCCESS = 'SUCCESS',
+  FAILURE = 'FAILURE',
+}
 
 export interface IGameState {
   maskedWordProgression: string[] | null;
   secretWord: string | null;
   wordList: Array<string>;
-  gameOver: boolean;
+  gameOver: EndGameStatus;
   charInput: string | null;
   totalGuesses: number;
   wrongGuesses: number;
@@ -31,19 +38,24 @@ export const initialState: IGameState = {
   secretWord: null,
   charInput: null,
   wordList: [],
-  gameOver: false,
+  gameOver: EndGameStatus.INACTIVE,
   wrongGuesses: 0,
   correctGuesses: 0,
   totalGuesses: 0,
   maxGuesses: 5,
 };
+/* Reducer helpers */
+const pickRandomFrom = (list: Array<any> = [], length: number = list.length) =>
+  list[Math.floor(Math.random() * length)];
+const getMaskedFormOf = (word: string): string[] =>
+  word.replace(/./g, '_').split('');
 
-//Define state changes (via actions)
+/* Reducer */
 const gameReducer = createReducer(
   initialState,
   on(GameActions.loadWordsSuccess, (state, { payload }) => {
-    const secretWord = payload[Math.floor(Math.random() * payload.length)];
-    const maskedWord = secretWord.replace(/./g, '_').split('');
+    const secretWord = pickRandomFrom(payload, payload.length);
+    const maskedWord = getMaskedFormOf(secretWord);
 
     return {
       ...state,
@@ -56,15 +68,26 @@ const gameReducer = createReducer(
     ...state,
     charInput,
   })),
-  on(GameActions.makeGuess, (state, {}) => ({
-    ...state,
-    guesses: state.totalGuesses + 1,
-  })),
-  on(GameActions.gameOver, state => ({ ...state, gameOver: true })),
-  on(GameActions.resetGuesses, state => initialState)
+  on(GameActions.makeGuess, (state, { guess }) => {
+    return {
+      ...state,
+      totalGuesses: state.totalGuesses + 1,
+    };
+  }),
+  on(GameActions.gameOver, (state, { gameOver }) => ({ ...state, gameOver })),
+  on(GameActions.restartGame, state => {
+    //Uses local wordList to avoid extra HTTP call
+    const secretWord = pickRandomFrom(state.wordList, state.wordList.length);
+    const maskedWord = getMaskedFormOf(secretWord);
+    return {
+      ...initialState,
+      secretWord,
+      maskedWordProgression: maskedWord,
+    };
+  })
 );
 
-//Updated from: switch-case syntax (<= 7.x)
+//Syntax updated from switch-case syntax (<= 7.x)
 export function reducer(state, action: Action): IGameState {
   return gameReducer(state, action);
 }
