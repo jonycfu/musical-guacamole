@@ -39,5 +39,9 @@
     flex-grow: 1;
     padding: 1rem 2rem;
     background-color: darkslateblue;
+
+    &:disabled {
+      background-color: lighten(darkslateblue, 20%);
+    }
   }
 }

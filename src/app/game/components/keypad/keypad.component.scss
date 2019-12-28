@@ -13,4 +13,9 @@
   text-align: center;
   color: whitesmoke;
   background: darkcyan;
+
+  &:disabled {
+    background: darken(darkcyan, 20%);
+    opacity: 0.2;
+  }
 }

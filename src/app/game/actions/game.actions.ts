@@ -5,8 +5,14 @@ export enum GameActionTypes {
   LoadWordApisFailure = '[WordApi] Load Word Api Service Failure',
   LoadWordApis = '[WordApi] Load Word Api Service',
   GetRandomWord = '[Game] Get Random Word',
-  SetGuess = '[Game] Set Guess',
+
+  SetGuess = '[Game] Set Guess', //Sets the buffer for guess before submissions
   MakeGuess = '[Game] Make Guess',
+  CheckGuess = '[Game] Check Guess',
+  incrementTotalGuess = '[Game] Increment Total Guess',
+  incrementCorrectGuess = '[Game] Increment Correct Guess',
+  incrementWrongGuess = '[Game] Increment Wrong Guess',
+
   RestartGame = '[Game] Restart Game',
   GameOver = '[Game] Over',
 }
@@ -20,6 +26,16 @@ export const setGuess = createAction(
 export const makeGuess = createAction(
   GameActionTypes.MakeGuess,
   props<{ guess: string }>()
+);
+
+export const incrementTotalGuess = createAction(
+  GameActionTypes.incrementTotalGuess
+);
+export const incrementCorrectGuess = createAction(
+  GameActionTypes.incrementCorrectGuess
+);
+export const incrementWrongGuess = createAction(
+  GameActionTypes.incrementWrongGuess
 );
 
 export const gameOver = createAction(

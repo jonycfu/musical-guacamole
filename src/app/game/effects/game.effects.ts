@@ -25,16 +25,4 @@ export class GameEffects {
       )
     )
   );
-
-  /*
-    1. Checks if secretWord contains guess char
-    2a. If exists, update correctGuess
-    2a. If exists, update maskedWordProgression
-    2b. If not exist, update wrongGuesses
-    3a. update totalGuesses
-    3b. Check if gameOver is true
-  */
-  processGuess$ = createEffect(() =>
-    this.actions$.pipe(ofType(GameActionTypes.MakeGuess), mergeMap)
-  );
 }

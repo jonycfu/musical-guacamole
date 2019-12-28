@@ -17,7 +17,9 @@ export class GameComponent implements OnInit {
   wrongGuesses$: Observable<number> = this.store.select(
     fromGame.getWrongGuesses
   );
-  guess: string = '_';
+  guess: string;
+  randomWord: string;
+  charGuessedList: string[];
 
   constructor(private store: Store<fromGame.IGameState>) {}
 
@@ -26,8 +28,12 @@ export class GameComponent implements OnInit {
     //Use subscribe for method access to guess prop
     //TODO: Unsubscribe
     this.store
-      .pipe(select(fromGame.getGuessChar))
-      .subscribe(guessedChar => (this.guess = guessedChar));
+      .pipe(select(fromGame.getPropsForGuessResult))
+      .subscribe(({ randomWord, guessChar, charGuessedList }) => {
+        this.randomWord = randomWord;
+        this.guess = guessChar;
+        this.charGuessedList = charGuessedList;
+      });
   }
   makeGuess(guess) {
     this.store.dispatch(makeGuess({ guess }));

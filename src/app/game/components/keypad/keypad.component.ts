@@ -1,6 +1,7 @@
-import { GameActionTypes, setGuess } from './../../actions/game.actions';
+import { Observable } from 'rxjs';
+import { setGuess } from './../../actions/game.actions';
 import * as fromGame from './../../reducers/game.reducer';
-import { Store, select } from '@ngrx/store';
+import { Store } from '@ngrx/store';
 import { Component, OnInit, Input } from '@angular/core';
 import { ALPHABETS, NUMERALS } from 'src/assets/hangman';
 
@@ -15,10 +16,16 @@ export class KeypadComponent implements OnInit {
 
   keyInputListTop: string[] = NUMERALS;
   keyInputListBottom: string[] = ALPHABETS;
+  disableKeyMap: any = {};
 
   constructor(private store: Store<fromGame.IGameState>) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.store.select(fromGame.getCharGuessedList).subscribe(guessList => {
+      //TODO: Improve performance (or provide better data structure)
+      guessList.forEach(guess => (this.disableKeyMap[guess] = true));
+    });
+  }
 
   setGuessAs(charInput: string) {
     this.store.dispatch(setGuess({ charInput }));

@@ -28,7 +28,11 @@
     </div>
     <div class="current-game-control">
       <section class="main-control-area">
-        <button class="main-control-btn" (click)="makeGuess(guess)">
+        <button
+          class="main-control-btn"
+          (click)="makeGuess(guess)"
+          [disabled]="!(charInput$ | async)"
+        >
           Make Guess
         </button>
         <button class="main-control-btn" (click)="restartGame()">

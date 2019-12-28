@@ -4,6 +4,7 @@
       class="keypad-btn"
       *ngFor="let number of keyInputListTop"
       (click)="setGuessAs(number)"
+      [disabled]="disableKeyMap[number]"
     >
       {{ number }}
     </button>
