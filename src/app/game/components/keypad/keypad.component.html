@@ -1,0 +1,20 @@
+<article>
+  <div class="keypad-row row" *ngIf="enableNumbers">
+    <button
+      class="keypad-btn"
+      *ngFor="let number of keyInputListTop"
+      (click)="setGuessAs(number)"
+    >
+      {{ number }}
+    </button>
+  </div>
+  <div class="keypad-row row" *ngIf="enableAlphabet">
+    <button
+      class="keypad-btn"
+      *ngFor="let letter of keyInputListBottom"
+      (click)="setGuessAs(letter)"
+    >
+      {{ letter }}
+    </button>
+  </div>
+</article>

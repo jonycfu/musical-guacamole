@@ -13,10 +13,10 @@
       >
     </section>
     <section class="masked-letter-area guessed-letter">
-      Your Guess: {{ guessedLetter || '_' }}
+      Your Guess: {{ (charInput$ | async) || '_' }}
     </section>
     <section class="key-input-area">
-      <span *ngFor="let inputLetter of alphanumerics">{{ inputLetter }}</span>
+      <app-keypad></app-keypad>
     </section>
   </div>
 </article>
