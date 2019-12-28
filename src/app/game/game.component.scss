@@ -1,17 +1,32 @@
+.game-wrapper {
+  display: flex;
+  flex-direction: column;
+}
 .masked-letter-area {
-  padding: 2rem;
+  padding: 2rem 0;
   text-align: center;
+  font-weight: bold;
+  font-size: 2rem;
+  display: flex;
+  justify-content: space-around;
+  color: whitesmoke;
 
   &.whole-word {
-    color: whitesmoke;
     background: darkslategray;
   }
-  &.guessed-letter {
-    color: whitesmoke;
+  &.guessed-letter,
+  &.lives-left-indicator {
     background: darkcyan;
+    max-width: 50%;
+    flex-grow: 1;
   }
 
   .masked-letter {
     margin-right: 1rem;
   }
+}
+
+.current-game-info {
+  display: flex;
+  flex-direction: row;
 }

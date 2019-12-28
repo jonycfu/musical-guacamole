@@ -16,7 +16,9 @@ export interface IGameState {
   wordList: Array<string>;
   gameOver: boolean;
   charInput: string | null;
-  guesses: number;
+  totalGuesses: number;
+  wrongGuesses: number;
+  correctGuesses: number;
   maxGuesses: number;
 }
 
@@ -30,7 +32,9 @@ export const initialState: IGameState = {
   charInput: null,
   wordList: [],
   gameOver: false,
-  guesses: 0,
+  wrongGuesses: 0,
+  correctGuesses: 0,
+  totalGuesses: 0,
   maxGuesses: 5,
 };
 
@@ -52,9 +56,9 @@ const gameReducer = createReducer(
     ...state,
     charInput,
   })),
-  on(GameActions.makeGuess, state => ({
+  on(GameActions.makeGuess, (state, {}) => ({
     ...state,
-    guesses: state.guesses + 1,
+    guesses: state.totalGuesses + 1,
   })),
   on(GameActions.gameOver, state => ({ ...state, gameOver: true })),
   on(GameActions.resetGuesses, state => initialState)
@@ -78,4 +82,12 @@ export const getMaskedWord = createSelector(getGameFeatureState, state => {
 
 export const getGuessChar = createSelector(getGameFeatureState, state => {
   return state.game.charInput;
+});
+
+export const getMaxGuesses = createSelector(getGameFeatureState, state => {
+  return state.game.maxGuesses;
+});
+
+export const getWrongGuesses = createSelector(getGameFeatureState, state => {
+  return state.game.wrongGuesses;
 });

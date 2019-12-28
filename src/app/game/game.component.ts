@@ -13,6 +13,10 @@ export class GameComponent implements OnInit {
   randomWord$: Observable<string> = this.store.select(fromGame.getRandomWord);
   maskedWord$: Observable<string[]> = this.store.select(fromGame.getMaskedWord);
   charInput$: Observable<string> = this.store.select(fromGame.getGuessChar);
+  maxGuesses$: Observable<number> = this.store.select(fromGame.getMaxGuesses);
+  wrongGuesses$: Observable<number> = this.store.select(
+    fromGame.getWrongGuesses
+  );
 
   constructor(private store: Store<fromGame.IGameState>) {}
 

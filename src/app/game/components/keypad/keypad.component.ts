@@ -22,6 +22,5 @@ export class KeypadComponent implements OnInit {
 
   setGuessAs(charInput: string) {
     this.store.dispatch(setGuess({ charInput }));
-    console.log(charInput);
   }
 }

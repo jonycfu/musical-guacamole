@@ -30,7 +30,9 @@ export class CanvasComponent implements OnInit, AfterViewInit {
   gallowsArray: Array<Array<Number>>;
   gameOver: boolean;
   maxGuesses: number;
-  guesses: number;
+  totalGuesses: number;
+  wrongGuesses: number;
+  //TODO: Refactor Game props into observables
   constructor(private store: Store<fromGame.IGameState>) {}
 
   ngOnInit() {
@@ -45,8 +47,8 @@ export class CanvasComponent implements OnInit, AfterViewInit {
     //TODO: Convert to this.observables$
     this.store
       .pipe(select(fromGame.getGameFeatureState))
-      .subscribe(({ game: { guesses, maxGuesses, gameOver } }) => {
-        this.guesses = guesses;
+      .subscribe(({ game: { totalGuesses, maxGuesses, gameOver } }) => {
+        this.totalGuesses = totalGuesses;
         this.maxGuesses = maxGuesses;
         this.gameOver = gameOver;
       });
@@ -64,11 +66,11 @@ export class CanvasComponent implements OnInit, AfterViewInit {
   //TODO: Take into consideration that number of guesses may change in future
   guess() {
     // If guesses are within limit
-    if (this.guesses <= this.maxGuesses) {
+    if (this.wrongGuesses <= this.maxGuesses) {
       this.drawHangmanParts();
       this.store.dispatch(makeGuess());
       //check for final stroke after dispatch
-      if (this.guesses > this.maxGuesses) {
+      if (this.wrongGuesses > this.maxGuesses) {
         this.store.dispatch(gameOver());
         console.log("jim's dead!");
       }
@@ -84,10 +86,10 @@ export class CanvasComponent implements OnInit, AfterViewInit {
   //Uses maxGuesses and guesses to evaluate draw step
   //Caps drawings at hangman parts count (length).
   drawHangmanParts() {
-    if (this.guesses === 0) {
+    if (this.totalGuesses === 0) {
       this.ctx.arc(...HANGMAN.head);
-    } else if (this.guesses <= this.hangmanArray.length) {
-      this.draw(...this.hangmanArray[this.guesses - 1]);
+    } else if (this.totalGuesses <= this.hangmanArray.length) {
+      this.draw(...this.hangmanArray[this.totalGuesses - 1]);
     }
     this.ctx.stroke();
   }

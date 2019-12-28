@@ -1,20 +1,31 @@
 <article class="flex-container">
-  <div>
+  <div class="game-wrapper">
     <h1>Hangman Game</h1>
     <p>Hint: {{ randomWord$ | async }}</p>
     <section>
       <app-canvas></app-canvas>
     </section>
     <section class="masked-letter-area whole-word">
-      <span
-        class="masked-letter"
-        *ngFor="let wordLetter of maskedWord$ | async"
-        >{{ wordLetter }}</span
-      >
+      <span>Secret Passcode:</span>
+      <div>
+        <span
+          class="masked-letter"
+          *ngFor="let wordLetter of maskedWord$ | async"
+          >{{ wordLetter }}</span
+        >
+      </div>
     </section>
-    <section class="masked-letter-area guessed-letter">
-      Your Guess: {{ (charInput$ | async) || '_' }}
-    </section>
+
+    <div class="current-game-info">
+      <section class="masked-letter-area guessed-letter">
+        <span> Your Guess: </span>
+        <span>{{ (charInput$ | async) || '_' }}</span>
+      </section>
+      <section class="masked-letter-area lives-left-indicator">
+        <span>Chances Left: </span>
+        <span>{{ (maxGuesses$ | async) - (wrongGuesses$ | async) }}</span>
+      </section>
+    </div>
     <section class="key-input-area">
       <app-keypad></app-keypad>
     </section>
