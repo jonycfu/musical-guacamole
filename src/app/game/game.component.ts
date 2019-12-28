@@ -1,9 +1,8 @@
-import { ALPHABETS, NUMERALS } from 'src/assets/hangman';
-import { GameActionTypes } from './actions/game.actions';
+import { GameActionTypes, loadWords } from './actions/game.actions';
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Store, select } from '@ngrx/store';
-import { getRandomWord, getMaskedWord } from './reducers/game.reducer';
+import * as fromGame from './reducers/game.reducer';
 
 @Component({
   selector: 'app-game',
@@ -11,14 +10,13 @@ import { getRandomWord, getMaskedWord } from './reducers/game.reducer';
   styleUrls: ['./game.component.scss'],
 })
 export class GameComponent implements OnInit {
-  randomWord$: Observable<string> = this.store.select(getRandomWord);
-  maskedWord$: Observable<string[]> = this.store.select(getMaskedWord);
-  keyInputListTop: string[] = ALPHABETS;
-  keyInputListBottom: string[] = NUMERALS;
+  randomWord$: Observable<string> = this.store.select(fromGame.getRandomWord);
+  maskedWord$: Observable<string[]> = this.store.select(fromGame.getMaskedWord);
+  charInput$: Observable<string> = this.store.select(fromGame.getGuessChar);
 
-  constructor(private store: Store<{}>) {}
+  constructor(private store: Store<fromGame.IGameState>) {}
 
   ngOnInit() {
-    this.store.dispatch({ type: GameActionTypes.LoadWordApis });
+    this.store.dispatch(loadWords());
   }
 }

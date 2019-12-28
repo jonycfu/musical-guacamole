@@ -5,13 +5,18 @@ export enum GameActionTypes {
   LoadWordApisFailure = '[WordApi] Load Word Api Service Failure',
   LoadWordApis = '[WordApi] Load Word Api Service',
   GetRandomWord = '[Game] Get Random Word',
-  SetGuessLimit = '[Game] Set Guess Limit',
+  SetGuess = '[Game] Set Guess',
   MakeGuess = '[Game] Make Guess',
   ResetGuesses = '[Game] Reset Guesses',
   GameOver = '[Game] Over',
 }
 
 //Single-unit of action related to the 'game' category
+export const setGuess = createAction(
+  GameActionTypes.SetGuess,
+  props<{ charInput: string }>()
+);
+
 export const makeGuess = createAction(GameActionTypes.MakeGuess);
 
 export const gameOver = createAction(GameActionTypes.GameOver);

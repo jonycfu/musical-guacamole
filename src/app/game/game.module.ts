@@ -9,9 +9,10 @@ import * as fromGame from './reducers';
 import { EffectsModule } from '@ngrx/effects';
 import { GameEffects } from './effects/game.effects';
 import { HttpClientModule } from '@angular/common/http';
+import { KeypadComponent } from './components/keypad/keypad.component';
 
 @NgModule({
-  declarations: [GameComponent, CanvasComponent],
+  declarations: [GameComponent, CanvasComponent, KeypadComponent],
   imports: [
     CommonModule,
     HttpClientModule,
