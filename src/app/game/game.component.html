@@ -24,7 +24,7 @@
         <div>
           <span
             class="masked-letter"
-            *ngFor="let guessedLetter of charGuessedList"
+            *ngFor="let guessedLetter of charGuessedList$ | async"
             >{{ guessedLetter }}</span
           >
         </div>
@@ -64,7 +64,11 @@
         >
           Make Guess
         </button>
-        <button class="main-control-btn" (click)="restartGame()">
+        <button
+          class="main-control-btn"
+          (click)="restartGame()"
+          [disabled]="(totalGuesses$ | async) < 1"
+        >
           Restart
         </button>
       </section>

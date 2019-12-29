@@ -22,6 +22,7 @@ export class CanvasComponent implements OnInit, AfterViewInit, OnChanges {
   ctx: CanvasRenderingContext2D;
   hangmanArray: Array<Array<any>>;
   gallowsArray: Array<Array<Number>>;
+  @Input() totalGuesses: number;
   @Input() maxGuesses: number;
   @Input() wrongGuesses: number;
 
@@ -48,9 +49,18 @@ export class CanvasComponent implements OnInit, AfterViewInit, OnChanges {
     this.drawGallows();
   }
   ngOnChanges(changes: { [propKey: string]: SimpleChange }) {
-    if (changes.wrongGuesses && !changes.wrongGuesses.isFirstChange()) {
-      this.drawHangmanParts();
+    const wrongGuesses = changes.wrongGuesses;
+    const guessesLeft = this.maxGuesses - this.wrongGuesses;
+    if (wrongGuesses && !wrongGuesses.isFirstChange()) {
+      if (wrongGuesses.currentValue > 0) {
+        this.drawHangmanParts();
+      }
     }
+    // Redraw when totalGuesses is zero
+    // if (guessesLeft > 0) {
+    //   this.ctx.clearRect(0, 0, this.ctx.canvas.width, this.ctx.canvas.height);
+    //   this.drawGallows();
+    // }
   }
 
   //Credit of Hangman Implementation: https://codepen.io/cathydutton/pen/ldazc

@@ -23,7 +23,7 @@ export class KeypadComponent implements OnInit {
 
   ngOnInit() {
     this.store.select(fromGame.getCharGuessedList).subscribe(guessList => {
-      //TODO: Improve performance (or provide better data structure)
+      this.disableKeyMap = {};
       guessList.forEach(guess => (this.disableKeyMap[guess] = true));
     });
   }

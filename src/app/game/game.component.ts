@@ -10,6 +10,9 @@ import * as fromGame from './reducers/game.reducer';
   styleUrls: ['./game.component.scss'],
 })
 export class GameComponent implements OnInit {
+  totalGuesses$: Observable<number> = this.store.select(
+    fromGame.getTotalGuesses
+  );
   charInput$: Observable<string> = this.store.select(fromGame.getGuessChar);
   charGuessedList$: Observable<string[]> = this.store.select(
     fromGame.getCharGuessedList

@@ -52,7 +52,7 @@ export const initialState: IGameState = {
   maxGuesses: 5,
 };
 
-/* Reducer helpers */
+/* Reducer projection helpers */
 const pickRandomFrom = (list: Array<any> = [], length: number = list.length) =>
   list[Math.floor(Math.random() * length)];
 
@@ -91,10 +91,12 @@ const gameReducer = createReducer(
     ) => {
       return {
         ...state,
+        charInput: '_',
         wrongGuesses,
         maskedWordProgression,
         gameOverStatus,
         charGuessedList: [...state.charGuessedList, charInput],
+        totalGuesses: state.totalGuesses + 1,
       };
     }
   ),
@@ -104,6 +106,7 @@ const gameReducer = createReducer(
     const maskedWord = getMaskedFormOf(secretWord);
     return {
       ...initialState,
+      wordList: state.wordList,
       secretWord,
       maskedWordProgression: maskedWord,
     };
@@ -140,6 +143,10 @@ export const getMaxGuesses = createSelector(getGameFeatureState, state => {
 
 export const getWrongGuesses = createSelector(getGameFeatureState, state => {
   return state.game.wrongGuesses;
+});
+
+export const getTotalGuesses = createSelector(getGameFeatureState, state => {
+  return state.game.totalGuesses;
 });
 
 export const getGameOverStatus = createSelector(getGameFeatureState, state => {
