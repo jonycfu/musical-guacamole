@@ -42,27 +42,29 @@ export class CanvasComponent implements OnInit, AfterViewInit, OnChanges {
   ngAfterViewInit() {
     // Setup Canvas
     this.ctx = this.canvas.nativeElement.getContext('2d');
-    this.ctx.beginPath();
     this.ctx.strokeStyle = '#ccc';
     this.ctx.lineWidth = 2;
     // Draw
-    this.drawGallows();
+    this.resetCanvas();
   }
   ngOnChanges(changes: { [propKey: string]: SimpleChange }) {
     const wrongGuesses = changes.wrongGuesses;
-    const guessesLeft = this.maxGuesses - this.wrongGuesses;
     if (wrongGuesses && !wrongGuesses.isFirstChange()) {
       if (wrongGuesses.currentValue > 0) {
         this.drawHangmanParts();
       }
+      // Redraw when totalGuesses is zero (reset)
+      else if (this.totalGuesses === 0) {
+        this.ctx.clearRect(0, 0, this.ctx.canvas.width, this.ctx.canvas.height);
+        this.resetCanvas();
+      }
     }
-    // Redraw when totalGuesses is zero
-    // if (guessesLeft > 0) {
-    //   this.ctx.clearRect(0, 0, this.ctx.canvas.width, this.ctx.canvas.height);
-    //   this.drawGallows();
-    // }
   }
 
+  resetCanvas() {
+    this.ctx.beginPath();
+    this.drawGallows();
+  }
   //Credit of Hangman Implementation: https://codepen.io/cathydutton/pen/ldazc
   drawGallows() {
     this.gallowsArray.forEach((item: Array<number>, idx) => this.draw(...item));

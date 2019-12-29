@@ -1,13 +1,16 @@
 <article class="flex-container">
   <div class="game-wrapper">
-    <h1>Hangman Game</h1>
-    <p>Hint: {{ randomWord$ | async }}</p>
-    <section>
+    <header>
+      <h1>Hangman Game</h1>
+      <p>Hint: {{ randomWord$ | async }}</p>
+    </header>
+    <div class="hangman-area">
       <app-canvas
         [maxGuesses]="maxGuesses"
         [wrongGuesses]="wrongGuesses"
+        [totalGuesses]="totalGuesses$ | async"
       ></app-canvas>
-    </section>
+    </div>
     <div class="secret-info">
       <section class="masked-letter-area whole-word">
         <span>Secret Passcode:</span>
