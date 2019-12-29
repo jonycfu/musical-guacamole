@@ -9,8 +9,8 @@ interface IHangman {
 }
 export const HANGMAN: IHangman = {
   gallows: [
-    [0, 150, 150, 150],
-    [10, 0, 10, 150],
+    [0, 450, 450, 450],
+    [10, 0, 10, 450],
     [0, 5, 70, 5],
     [60, 5, 60, 15],
   ],

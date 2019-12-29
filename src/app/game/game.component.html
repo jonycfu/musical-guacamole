@@ -3,34 +3,63 @@
     <h1>Hangman Game</h1>
     <p>Hint: {{ randomWord$ | async }}</p>
     <section>
-      <app-canvas></app-canvas>
+      <app-canvas
+        [maxGuesses]="maxGuesses"
+        [wrongGuesses]="wrongGuesses"
+      ></app-canvas>
     </section>
-    <section class="masked-letter-area whole-word">
-      <span>Secret Passcode:</span>
-      <div>
-        <span
-          class="masked-letter"
-          *ngFor="let wordLetter of maskedWord$ | async"
-          >{{ wordLetter }}</span
-        >
-      </div>
-    </section>
+    <div class="secret-info">
+      <section class="masked-letter-area whole-word">
+        <span>Secret Passcode:</span>
+        <div>
+          <span
+            class="masked-letter"
+            *ngFor="let wordLetter of maskedWordProgression"
+            >{{ wordLetter }}</span
+          >
+        </div>
+      </section>
+      <section class="masked-letter-area guess-history">
+        <span>Previous Guesses:</span>
+        <div>
+          <span
+            class="masked-letter"
+            *ngFor="let guessedLetter of charGuessedList"
+            >{{ guessedLetter }}</span
+          >
+        </div>
+      </section>
+    </div>
 
     <div class="current-game-info">
       <section class="masked-letter-area guessed-letter">
         <span> Your Guess: </span>
         <span>{{ (charInput$ | async) || '_' }}</span>
       </section>
-      <section class="masked-letter-area lives-left-indicator">
+      <section
+        class="masked-letter-area lives-left-indicator"
+        *ngIf="maxGuesses - wrongGuesses > 0"
+      >
         <span>Chances Left: </span>
-        <span>{{ (maxGuesses$ | async) - (wrongGuesses$ | async) }}</span>
+        <span>
+          {{ maxGuesses - wrongGuesses }}
+        </span>
+      </section>
+      <section
+        class="masked-letter-area game-status-indicator"
+        *ngIf="(gameOverStatus$ | async) !== 'INACTIVE'"
+      >
+        <span>Game Status: </span>
+        <span>
+          {{ gameOverStatus$ | async }}
+        </span>
       </section>
     </div>
     <div class="current-game-control">
       <section class="main-control-area">
         <button
           class="main-control-btn"
-          (click)="makeGuess(guess)"
+          (click)="makeGuess()"
           [disabled]="!(charInput$ | async)"
         >
           Make Guess
@@ -40,7 +69,9 @@
         </button>
       </section>
       <section class="key-input-area">
-        <app-keypad></app-keypad>
+        <app-keypad
+          [isDisableAllKeys]="(gameOverStatus$ | async) !== 'INACTIVE'"
+        ></app-keypad>
       </section>
     </div>
   </div>
