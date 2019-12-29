@@ -14,4 +14,12 @@ export class WordApiService {
   public getSecretWordList(): Observable<any> {
     return this.http.get(`${API_URL}/secret-words`);
   }
+
+  public getHighScoresList(): Observable<any> {
+    return this.http.get(`${API_URL}/high-scores`);
+  }
+
+  public updateScoreEntries(scoreEntry): Observable<any> {
+    return this.http.put(`${API_URL}/high-scores`, scoreEntry);
+  }
 }

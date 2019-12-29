@@ -1,1 +1,8 @@
 <p>score works!</p>
+<table>
+  <tr *ngFor="let entry of scoreList$ | async">
+    <td>{{ entry.name }}</td>
+    <td>{{ entry.score }}</td>
+    <td>{{ entry.datetime }}</td>
+  </tr>
+</table>

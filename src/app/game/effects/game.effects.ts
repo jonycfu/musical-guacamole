@@ -1,20 +1,20 @@
 import { endGame } from './../actions/game.actions';
-import { IAppState } from './../reducers/game.reducer';
 import { Store } from '@ngrx/store';
 import { WordApiService } from './../../core/services/word-api.service';
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { map, mergeMap, catchError, tap } from 'rxjs/operators';
-import { GameActionTypes, loadWordsFailure } from '../actions/game.actions';
+import { map, mergeMap, catchError, tap, withLatestFrom } from 'rxjs/operators';
+import { GameActionTypes } from '../actions/game.actions';
 import { of } from 'rxjs';
 import { Router } from '@angular/router';
+import { calcFinalScore } from 'src/app/score/actions/score.actions';
 
 @Injectable()
 export class GameEffects {
   constructor(
     private actions$: Actions,
     private api: WordApiService,
-    private store: Store<IAppState>,
+    private store: Store<any>,
     private router: Router
   ) {}
 
@@ -44,7 +44,7 @@ export class GameEffects {
     () =>
       this.actions$.pipe(
         ofType(GameActionTypes.MakeGuess),
-        tap(({ gameOverStatus }) => {
+        tap(({ gameOverStatus, startTime, endTime }) => {
           if (gameOverStatus !== 'INACTIVE') {
             this.store.dispatch(endGame({ gameOverStatus }));
           }
@@ -53,17 +53,34 @@ export class GameEffects {
     { dispatch: false }
   );
 
-  endGameDefeat$ = createEffect(
+  endGame$ = createEffect(
     () =>
       this.actions$.pipe(
         ofType(GameActionTypes.EndGame),
-        tap(({ gameOverStatus }) => {
-          if (gameOverStatus === 'FAILURE') {
-            this.router.navigate(['/game/defeat']);
-          } else if (gameOverStatus === 'SUCCESS') {
-            this.router.navigate(['/game/victory']);
+        withLatestFrom(this.store),
+        tap(
+          ([
+            { gameOverStatus },
+            {
+              game: {
+                game: { startTime, totalGuesses, secretWord },
+              },
+            },
+          ]) => {
+            if (gameOverStatus === 'FAILURE') {
+              this.router.navigate(['/game/defeat']);
+            } else if (gameOverStatus === 'SUCCESS') {
+              console.log('calcFinalScore', {
+                startTime,
+              });
+
+              this.store.dispatch(
+                calcFinalScore({ startTime, totalGuesses, secretWord })
+              );
+              this.router.navigate(['/game/victory']);
+            }
           }
-        })
+        )
       ),
     { dispatch: false }
   );
