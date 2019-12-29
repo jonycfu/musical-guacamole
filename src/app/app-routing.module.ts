@@ -15,10 +15,13 @@ const routes: Routes = [
     loadChildren: () => import('./game/game.module').then(m => m.GameModule),
   },
   {
-    // matches all non-matching paths to redirect to menu screen
     path: '',
-    redirectTo: 'start-menu',
     pathMatch: 'full',
+    redirectTo: 'start-menu',
+  },
+  {
+    path: '**',
+    redirectTo: 'start-menu',
   },
 ];
 
