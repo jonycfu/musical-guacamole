@@ -1,3 +1,6 @@
+import { VictoryComponent } from './pages/victory/victory.component';
+import { DefeatComponent } from './pages/defeat/defeat.component';
+import { PlayComponent } from './pages/play/play.component';
 import { GameGuard } from './game.guard';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
@@ -8,11 +11,13 @@ const routes: Routes = [
   {
     path: '',
     component: GameComponent,
-    canActivateChild: [GameGuard],
     children: [
+      { path: 'play', component: PlayComponent },
+      { path: 'defeat', canActivate: [GameGuard], component: DefeatComponent },
       {
-        path: 'end',
-        children: [{ path: 'game-over' }, { path: 'victory' }],
+        path: 'victory',
+        canActivate: [GameGuard],
+        component: VictoryComponent,
       },
     ],
   },

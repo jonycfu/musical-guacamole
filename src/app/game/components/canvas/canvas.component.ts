@@ -1,3 +1,4 @@
+import { EndGameStatus } from './../../reducers/game.reducer';
 import {
   Component,
   OnInit,
@@ -22,6 +23,7 @@ export class CanvasComponent implements OnInit, AfterViewInit, OnChanges {
   ctx: CanvasRenderingContext2D;
   hangmanArray: Array<Array<any>>;
   gallowsArray: Array<Array<Number>>;
+  @Input() gameStatus: EndGameStatus;
   @Input() totalGuesses: number;
   @Input() maxGuesses: number;
   @Input() wrongGuesses: number;

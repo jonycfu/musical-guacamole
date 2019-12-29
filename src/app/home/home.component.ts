@@ -6,7 +6,7 @@ interface IMenuItem {
 }
 
 const menu: Array<IMenuItem> = [
-  { title: 'Start Game', path: 'game' },
+  { title: 'Start Game', path: 'game/play' },
   { title: 'Scoreboard', path: 'scoreboard' },
 ];
 

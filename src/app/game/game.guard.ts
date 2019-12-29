@@ -1,7 +1,7 @@
 import { Store, select } from '@ngrx/store';
 import { Injectable } from '@angular/core';
 import {
-  CanActivateChild,
+  CanActivate,
   ActivatedRouteSnapshot,
   RouterStateSnapshot,
   UrlTree,
@@ -18,9 +18,9 @@ import { map, tap, take } from 'rxjs/operators';
 @Injectable({
   providedIn: 'root',
 })
-export class GameGuard implements CanActivateChild {
+export class GameGuard implements CanActivate {
   constructor(private store: Store<IGameState>, private router: Router) {}
-  canActivateChild(
+  canActivate(
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
   ):

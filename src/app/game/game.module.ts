@@ -10,9 +10,12 @@ import { EffectsModule } from '@ngrx/effects';
 import { GameEffects } from './effects/game.effects';
 import { HttpClientModule } from '@angular/common/http';
 import { KeypadComponent } from './components/keypad/keypad.component';
+import { PlayComponent } from './pages/play/play.component';
+import { VictoryComponent } from './pages/victory/victory.component';
+import { DefeatComponent } from './pages/defeat/defeat.component';
 
 @NgModule({
-  declarations: [GameComponent, CanvasComponent, KeypadComponent],
+  declarations: [GameComponent, CanvasComponent, KeypadComponent, PlayComponent, VictoryComponent, DefeatComponent],
   imports: [
     CommonModule,
     HttpClientModule,
