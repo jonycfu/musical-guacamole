@@ -1,12 +1,19 @@
+import { IAppState } from './../reducers/game.reducer';
+import { Store } from '@ngrx/store';
 import { WordApiService } from './../../core/services/word-api.service';
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { map, mergeMap, catchError } from 'rxjs/operators';
-import { GameActionTypes } from '../actions/game.actions';
+import { GameActionTypes, loadWordsFailure } from '../actions/game.actions';
+import { of } from 'rxjs';
 
 @Injectable()
 export class GameEffects {
-  constructor(private actions$: Actions, private api: WordApiService) {}
+  constructor(
+    private actions$: Actions,
+    private api: WordApiService,
+    private store: Store<IAppState>
+  ) {}
 
   getWordList$ = createEffect(() =>
     this.actions$.pipe(
@@ -17,10 +24,14 @@ export class GameEffects {
             type: GameActionTypes.LoadWordApisSuccess,
             ...data,
           })),
-          catchError(err => ({
-            type: GameActionTypes.LoadWordApisFailure,
-            ...err,
-          }))
+          catchError(error => {
+            return of({
+              type: GameActionTypes.LoadWordApisFailure,
+              error,
+              message: `Unable to get a new word list from api. 
+                Have you checked if the server/endpoint is down?`,
+            });
+          })
         )
       )
     )

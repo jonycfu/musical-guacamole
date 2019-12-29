@@ -1,3 +1,4 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import {
   Action,
   createReducer,
@@ -22,15 +23,15 @@ export enum EndGameStatus {
 }
 
 export interface IGameState {
+  error: { message: string; data: HttpErrorResponse } | null;
   maskedWordProgression: string[] | null;
   secretWord: string | null;
   wordList: Array<string>;
-  gameOver: EndGameStatus;
+  gameOverStatus: EndGameStatus;
   charInput: string | null;
   charGuessedList: Array<string>;
   totalGuesses: number;
   wrongGuesses: number;
-  correctGuesses: number;
   maxGuesses: number;
 }
 
@@ -39,22 +40,22 @@ export interface IAppState {
 }
 
 export const initialState: IGameState = {
+  error: null,
   maskedWordProgression: null,
   secretWord: null,
   charInput: null,
   charGuessedList: [],
   wordList: [],
-  gameOver: EndGameStatus.INACTIVE,
+  gameOverStatus: EndGameStatus.INACTIVE,
   wrongGuesses: 0,
-  correctGuesses: 0,
   totalGuesses: 0,
   maxGuesses: 5,
 };
+
 /* Reducer helpers */
 const pickRandomFrom = (list: Array<any> = [], length: number = list.length) =>
   list[Math.floor(Math.random() * length)];
 
-//TODO: Refactor in favor of NgPipes
 const getMaskedFormOf = (word: string): string[] =>
   word.replace(/./g, '_').split('');
 
@@ -72,39 +73,31 @@ const gameReducer = createReducer(
       maskedWordProgression: maskedWord,
     };
   }),
+  on(GameActions.loadWordsFailure, (state, { error, message }) => {
+    return {
+      ...state,
+      error: { data: error, message },
+    };
+  }),
   on(GameActions.setGuess, (state, { charInput }) => ({
     ...state,
     charInput,
   })),
-  on(GameActions.makeGuess, (state, { guess }) => {
-    /*
-      Check if guess exists in the word.
-      By determining if guessed letter is found in secretWord
-      Revealing of recurring letters will be handled via NgPipe
-
-      1. provided the guessResult from dispatcher context
-      2a. If exists, update correctGuess
-      2b. If not exist, update wrongGuesses
-      3a. update totalGuesses
-      3b. Check if gameOver is true
-    */
-    const secretWord = state.secretWord.toLowerCase();
-    const guessLetter = guess.toLowerCase();
-
-    const result = secretWord.includes(guessLetter)
-      ? GuessResult.CORRECT
-      : GuessResult.WRONG;
-
-    return {
-      ...state,
-      guessResult: result,
-      charGuessedList: [...state.charGuessedList, guess],
-      correctGuesses:
-        state.correctGuesses + (result === GuessResult.CORRECT ? 1 : 0),
-      wrongGuesses: state.wrongGuesses + (result === GuessResult.WRONG ? 1 : 0),
-    };
-  }),
-  on(GameActions.gameOver, (state, { gameOver }) => ({ ...state, gameOver })),
+  on(
+    GameActions.makeGuess,
+    (
+      state,
+      { charInput, maskedWordProgression, wrongGuesses, gameOverStatus }
+    ) => {
+      return {
+        ...state,
+        wrongGuesses,
+        maskedWordProgression,
+        gameOverStatus,
+        charGuessedList: [...state.charGuessedList, charInput],
+      };
+    }
+  ),
   on(GameActions.restartGame, state => {
     //Uses local wordList to avoid extra HTTP call
     const secretWord = pickRandomFrom(state.wordList, state.wordList.length);
@@ -125,7 +118,7 @@ export function reducer(state, action: Action): IGameState {
 /* Selectors */
 export const getGameFeatureState = createFeatureSelector<IAppState>('game');
 
-export const getRandomWord = createSelector(getGameFeatureState, state => {
+export const getSecretWord = createSelector(getGameFeatureState, state => {
   return state.game.secretWord;
 });
 
@@ -149,14 +142,6 @@ export const getWrongGuesses = createSelector(getGameFeatureState, state => {
   return state.game.wrongGuesses;
 });
 
-//Composite selector
-export const getPropsForGuessResult = createSelector(
-  getRandomWord,
-  getGuessChar,
-  getCharGuessedList,
-  (randomWord, guessChar, charGuessedList) => ({
-    randomWord,
-    guessChar,
-    charGuessedList,
-  })
-);
+export const getGameOverStatus = createSelector(getGameFeatureState, state => {
+  return state.game.gameOverStatus;
+});

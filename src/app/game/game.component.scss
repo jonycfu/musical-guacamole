@@ -11,13 +11,14 @@
   justify-content: space-around;
   color: whitesmoke;
 
+  &.guess-history,
   &.whole-word {
     background: darkslategray;
   }
   &.guessed-letter,
-  &.lives-left-indicator {
+  &.lives-left-indicator,
+  &.game-status-indicator {
     background: darkcyan;
-    flex-grow: 1;
   }
 
   .masked-letter {
@@ -25,10 +26,15 @@
   }
 }
 
+.secret-info,
 .current-game-info,
 .main-control-area {
   display: flex;
   flex-direction: row;
+
+  & > section {
+    flex-grow: 1;
+  }
 }
 
 .main-control-area {
