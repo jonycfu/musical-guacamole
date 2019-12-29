@@ -1,5 +1,6 @@
 .keypad-row {
   padding: 1rem;
+  background: lightcyan;
 }
 
 .keypad-btn {
@@ -12,10 +13,10 @@
   font-weight: bold;
   text-align: center;
   color: whitesmoke;
-  background: darkcyan;
+  background: darkslateblue;
 
   &:disabled {
-    background: darken(darkcyan, 20%);
     opacity: 0.2;
+    cursor: not-allowed;
   }
 }

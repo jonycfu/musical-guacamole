@@ -63,7 +63,9 @@
         <button
           class="main-control-btn"
           (click)="makeGuess()"
-          [disabled]="!(charInput$ | async)"
+          [disabled]="
+            !(charInput$ | async) || (gameOverStatus$ | async) !== 'INACTIVE'
+          "
         >
           Make Guess
         </button>
