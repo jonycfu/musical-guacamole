@@ -11,6 +11,7 @@ import { ALPHABETS, NUMERALS } from 'src/assets/hangman';
   styleUrls: ['./keypad.component.scss'],
 })
 export class KeypadComponent implements OnInit {
+  @Input() isDisableAllKeys: fromGame.EndGameStatus;
   @Input() enableNumbers: boolean = true;
   @Input() enableAlphabet: boolean = true;
 
