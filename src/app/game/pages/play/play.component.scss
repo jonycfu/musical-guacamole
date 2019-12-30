@@ -1,16 +1,18 @@
 .hangman-area {
   margin: 2rem;
 }
+.guess-history {
+  text-align: center;
+  font-size: 1.5rem;
+  padding-top: 2rem;
+}
 .masked-letter-area {
   padding: 2rem 0;
   text-align: center;
   font-weight: bold;
-  font-size: 2rem;
-  display: flex;
-  justify-content: space-around;
+  font-size: 1.7rem;
   color: whitesmoke;
 
-  &.guess-history,
   &.whole-word {
     background: darkslategray;
   }
@@ -18,6 +20,7 @@
   &.lives-left-indicator,
   &.game-status-indicator {
     background: darkcyan;
+    height: 10rem;
   }
 
   .masked-letter {
@@ -41,12 +44,13 @@
     color: whitesmoke;
     font-weight: bold;
     font-size: 2rem;
-    flex-grow: 1;
-    padding: 1rem 2rem;
+    padding: 0.5rem 0.2rem;
+    border-radius: 0.3rem;
     background-color: darkslateblue;
 
     &:disabled {
       background-color: lighten(darkslateblue, 20%);
+      cursor: not-allowed;
     }
   }
 }

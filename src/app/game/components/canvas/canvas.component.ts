@@ -44,8 +44,8 @@ export class CanvasComponent implements OnInit, AfterViewInit, OnChanges {
   ngAfterViewInit() {
     // Setup Canvas
     this.ctx = this.canvas.nativeElement.getContext('2d');
-    this.ctx.strokeStyle = '#ccc';
-    this.ctx.lineWidth = 2;
+    this.ctx.strokeStyle = 'darkslateblue';
+    this.ctx.lineWidth = 1;
     // Draw
     this.resetCanvas();
   }

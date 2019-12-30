@@ -1,4 +1,3 @@
-import { Observable } from 'rxjs';
 import { setGuess } from './../../actions/game.actions';
 import * as fromGame from './../../reducers/game.reducer';
 import { Store } from '@ngrx/store';

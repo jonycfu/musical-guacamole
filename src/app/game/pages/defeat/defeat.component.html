@@ -1,1 +1,15 @@
-<p>defeat works!</p>
+<div class="flex-container">
+  <div class="text-center">
+    <h1>GAME OVER.</h1>
+    <p>
+      Well, not everyone can be saved -- sometimes they deserve it anyway.
+      Another try?
+    </p>
+    <section class="justify-content-around d-flex">
+      <a routerLink="/game-menu">Return to Menu</a>
+      <a routerLink="/game/play" [queryParams]="{ restart: true }"
+        >Try Again.</a
+      >
+    </section>
+  </div>
+</div>

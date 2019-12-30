@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Observable, Subscription } from 'rxjs';
 import { Store, select } from '@ngrx/store';
 import {
   loadWords,
@@ -7,36 +7,47 @@ import {
   makeGuess,
 } from './../../actions/game.actions';
 import * as fromGame from './../../reducers/game.reducer';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-play',
   templateUrl: './play.component.html',
   styleUrls: ['./play.component.scss'],
 })
-export class PlayComponent implements OnInit {
+export class PlayComponent implements OnInit, OnDestroy {
+  // `async` pipe usage
   totalGuesses$: Observable<number> = this.store.select(
     fromGame.getTotalGuesses
   );
-  charInput$: Observable<string> = this.store.select(fromGame.getGuessChar);
   charGuessedList$: Observable<string[]> = this.store.select(
     fromGame.getCharGuessedList
   );
   gameOverStatus$: Observable<fromGame.EndGameStatus> = this.store.select(
     fromGame.getGameOverStatus
   );
+  // class usage
+  storeSub: Subscription;
+  routeSub: Subscription;
   charInput: string;
   secretWord: string;
   maxGuesses: number;
   wrongGuesses: number;
   maskedWordProgression: string[];
 
-  constructor(private store: Store<fromGame.IGameState>) {}
+  constructor(
+    private store: Store<fromGame.IGameState>,
+    private route: ActivatedRoute
+  ) {}
 
   ngOnInit() {
     this.store.dispatch(loadWords());
+    this.routeSub = this.route.queryParamMap.subscribe(params => {
+      if (params.get('restart')) {
+        this.store.dispatch(loadWords());
+      }
+    });
     //Use subscribe for method access to guess prop
-    //TODO: Unsubscribe
-    this.store
+    this.storeSub = this.store
       .pipe(select(fromGame.getGameFeatureState))
       .subscribe(
         ({
@@ -55,6 +66,10 @@ export class PlayComponent implements OnInit {
           this.maskedWordProgression = maskedWordProgression;
         }
       );
+  }
+  ngOnDestroy() {
+    this.storeSub.unsubscribe();
+    this.routeSub.unsubscribe();
   }
   makeGuess() {
     const guessResults = this.getCheckedGuessResults();
