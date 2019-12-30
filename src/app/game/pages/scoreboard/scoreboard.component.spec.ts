@@ -1,6 +1,8 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ScoreboardComponent } from './scoreboard.component';
+import { provideMockStore } from '@ngrx/store/testing';
+import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
 
 describe('ScoreboardComponent', () => {
   let component: ScoreboardComponent;
@@ -8,9 +10,10 @@ describe('ScoreboardComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ScoreboardComponent ]
-    })
-    .compileComponents();
+      declarations: [ScoreboardComponent],
+      providers: [provideMockStore({})],
+      schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA],
+    }).compileComponents();
   }));
 
   beforeEach(() => {

@@ -1,6 +1,10 @@
 import { SharedModule } from './../shared/shared.module';
 import { CanvasComponent } from './components/canvas/canvas.component';
-import { NgModule } from '@angular/core';
+import {
+  NgModule,
+  NO_ERRORS_SCHEMA,
+  CUSTOM_ELEMENTS_SCHEMA,
+} from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { GameRoutingModule } from './game-routing.module';
@@ -38,5 +42,6 @@ import { ScoreboardComponent } from './pages/scoreboard/scoreboard.component';
     }),
     EffectsModule.forFeature([GameEffects]),
   ],
+  schemas: [NO_ERRORS_SCHEMA, CUSTOM_ELEMENTS_SCHEMA],
 })
 export class GameModule {}

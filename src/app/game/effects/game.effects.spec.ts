@@ -1,3 +1,4 @@
+import { RouterTestingModule } from '@angular/router/testing';
 import { provideMockStore } from '@ngrx/store/testing';
 import { WordApiService } from './../../core/services/word-api.service';
 import { TestBed, async } from '@angular/core/testing';
@@ -23,6 +24,7 @@ describe('GameEffects', () => {
         provideMockStore({ initialState }),
         provideMockActions(() => actions$),
       ],
+      imports: [RouterTestingModule],
     });
 
     wordApiService = TestBed.get(WordApiService);

@@ -1,11 +1,14 @@
-import { TestBed, async, inject } from '@angular/core/testing';
+import { RouterTestingModule } from '@angular/router/testing';
+import { TestBed, inject } from '@angular/core/testing';
 
 import { GameGuard } from './game.guard';
+import { provideMockStore } from '@ngrx/store/testing';
 
 describe('GameGuard', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [GameGuard]
+      providers: [GameGuard, provideMockStore({})],
+      imports: [RouterTestingModule],
     });
   });
 
