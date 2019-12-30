@@ -1,0 +1,22 @@
+<article>
+  <div class="keypad-row row justify-content-center" *ngIf="enableNumbers">
+    <button
+      class="keypad-btn"
+      *ngFor="let number of keyInputListTop"
+      (click)="setGuessAs(number)"
+      [disabled]="isDisableAllKeys || disableKeyMap[number]"
+    >
+      {{ number }}
+    </button>
+  </div>
+  <div class="keypad-row row justify-content-center" *ngIf="enableAlphabet">
+    <button
+      class="keypad-btn"
+      *ngFor="let letter of keyInputListBottom"
+      (click)="setGuessAs(letter)"
+      [disabled]="isDisableAllKeys || disableKeyMap[letter]"
+    >
+      {{ letter }}
+    </button>
+  </div>
+</article>

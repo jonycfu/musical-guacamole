@@ -6,8 +6,8 @@ interface IMenuItem {
 }
 
 const menu: Array<IMenuItem> = [
-  { title: 'Start Game', path: 'game' },
-  { title: 'Scoreboard', path: 'scoreboard' },
+  { title: 'Start Game', path: 'game/play' },
+  { title: 'Scoreboard', path: 'game/scoreboard' },
 ];
 
 @Component({

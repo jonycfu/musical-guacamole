@@ -6,6 +6,6 @@ import { ListComponent } from './list/list.component';
 @NgModule({
   declarations: [ListComponent],
   exports: [ListComponent],
-  imports: [CommonModule, RouterModule]
+  imports: [CommonModule, RouterModule],
 })
 export class SharedModule {}

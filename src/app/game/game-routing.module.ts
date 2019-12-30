@@ -1,12 +1,35 @@
+import { VictoryComponent } from './pages/victory/victory.component';
+import { DefeatComponent } from './pages/defeat/defeat.component';
+import { PlayComponent } from './pages/play/play.component';
+import { GameGuard } from './game.guard';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
 import { GameComponent } from './game.component';
+import { ScoreboardComponent } from './pages/scoreboard/scoreboard.component';
 
-const routes: Routes = [{ path: '', component: GameComponent }];
+const routes: Routes = [
+  {
+    path: '',
+    component: GameComponent,
+    children: [
+      { path: 'play', component: PlayComponent },
+      { path: 'defeat', canActivate: [GameGuard], component: DefeatComponent },
+      {
+        path: 'victory',
+        canActivate: [GameGuard],
+        component: VictoryComponent,
+      },
+      {
+        path: 'scoreboard',
+        component: ScoreboardComponent,
+      },
+    ],
+  },
+];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class GameRoutingModule { }
+export class GameRoutingModule {}

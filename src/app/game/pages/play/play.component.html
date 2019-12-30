@@ -1,0 +1,73 @@
+<div class="hangman-area">
+  <app-canvas
+    [gameStatus]="gameOverStatus$ | async"
+    [totalGuesses]="totalGuesses$ | async"
+    [wrongGuesses]="wrongGuesses"
+    [maxGuesses]="maxGuesses"
+  ></app-canvas>
+  <section class="guess-history col-12">
+    <div>
+      <span
+        class="masked-letter"
+        *ngFor="let guessedLetter of charGuessedList$ | async"
+        >{{ guessedLetter }}</span
+      >
+    </div>
+    <p>Hint: {{ secretWord }}</p>
+  </section>
+</div>
+<div class="secret-info d-flex flex-column">
+  <section class="masked-letter-area whole-word col-12">
+    <span>Secret Passcode:</span>
+    <div>
+      <span
+        class="masked-letter"
+        *ngFor="let wordLetter of maskedWordProgression"
+        >{{ wordLetter }}</span
+      >
+    </div>
+  </section>
+</div>
+
+<div class="current-game-info d-flex flex-wrap">
+  <section class="masked-letter-area guessed-letter col-6">
+    <span> Your Guess: </span>
+    <div>
+      <span>'{{ charInput || '(Choose a key)' }}'</span>
+    </div>
+  </section>
+  <section
+    class="masked-letter-area lives-left-indicator col-6"
+    *ngIf="maxGuesses - wrongGuesses > 0"
+  >
+    <span>Chances Left: </span>
+    <div>
+      <span>
+        {{ maxGuesses - wrongGuesses }}
+      </span>
+    </div>
+  </section>
+  <section class="main-control-area d-flex flex-wrap">
+    <button
+      class="main-control-btn col-6 col-md-12"
+      (click)="makeGuess()"
+      [disabled]="!charInput || (gameOverStatus$ | async) !== 'INACTIVE'"
+    >
+      Make Guess
+    </button>
+    <button
+      class="main-control-btn col-6 col-md-12"
+      (click)="restartGame()"
+      [disabled]="(totalGuesses$ | async) < 1"
+    >
+      Restart
+    </button>
+  </section>
+</div>
+<div class="current-game-control flex-container">
+  <section class="key-input-area col-12 col-md-8">
+    <app-keypad
+      [isDisableAllKeys]="(gameOverStatus$ | async) !== 'INACTIVE'"
+    ></app-keypad>
+  </section>
+</div>

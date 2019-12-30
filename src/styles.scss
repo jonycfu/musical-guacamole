@@ -1,11 +1,24 @@
 /* You can add global styles to this file, and also import other style files */
+// Font styles
+@font-face {
+  font-family: lato;
+  src: url(assets/fonts/Lato-Regular.ttf) format('truetype');
+  src: url(assets/fonts/Lato-Bold.ttf) format('truetype');
+}
 
+// Base selector styles
 html,
 body {
   height: 100%;
 }
 body {
   margin: 0;
+  font-family: 'Lato', serif;
+}
+header {
+  padding: 2rem;
+  background: darkslategrey;
+  color: whitesmoke;
 }
 .flex-container {
   height: 100%;
@@ -22,18 +35,13 @@ body {
 .row {
   width: auto;
 }
-.flex-item {
-  padding: 5px;
-  width: 20px;
-  height: 20px;
-  margin: 10px;
-  line-height: 20px;
-  color: white;
-  font-weight: bold;
-  font-size: 2em;
-  text-align: center;
-}
-
 li {
   list-style-type: none;
 }
+
+// Libraries
+
+@import '~bootstrap/scss/bootstrap-reboot';
+@import '~bootstrap/scss/bootstrap-grid';
+@import '~bootstrap/scss/tables';
+@import '~bootstrap/scss/buttons';

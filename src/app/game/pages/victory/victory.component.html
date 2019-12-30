@@ -1,0 +1,21 @@
+<article class="flex-container">
+  <div class="score-report-area">
+    <h1>Victory!</h1>
+    <p>Now save your score! (Try not to refresh browser)</p>
+    <strong>Your Score: {{ gameScore }}</strong>
+    <form [formGroup]="scoreForm" (ngSubmit)="onSubmit()">
+      <label>
+        Player Name:
+        <input
+          required
+          minlength="3"
+          maxlength="24"
+          type="text"
+          formControlName="name"
+          placeholder="Your Secret Codename..."
+        />
+      </label>
+      <button type="submit" [disabled]="!scoreForm.valid">Submit</button>
+    </form>
+  </div>
+</article>
