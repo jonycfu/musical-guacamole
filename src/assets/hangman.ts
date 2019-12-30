@@ -1,6 +1,6 @@
 export interface IHangman {
   gallows: Array<Array<number>>;
-  head: [number, number, number, number, number, boolean]; //tuple type
+  head: [number, number, number, number, number, boolean]; // tuple type for canvas.arc(...)
   torso: Array<number>;
   rightArm: Array<number>;
   leftArm: Array<number>;
@@ -22,7 +22,7 @@ export const HANGMAN: IHangman = {
   leftLeg: [60, 70, 20, 100],
 };
 
-//static constants -- alt. can use dynamic Array.from() generation
+// static constants -- alt. can use dynamic Array.from() generation
 export const NUMERALS = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
 export const ALPHABETS = [
   'A',

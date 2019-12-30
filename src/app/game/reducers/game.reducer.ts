@@ -122,7 +122,7 @@ const gameReducer = createReducer(
     }
   ),
   on(GameActions.restartGame, state => {
-    //Uses local wordList to avoid extra HTTP call
+    // Uses local wordList to avoid extra HTTP call
     const secretWord = pickRandomFrom(state.wordList, state.wordList.length);
     const maskedWord = getMaskedFormOf(secretWord);
     return {
@@ -158,7 +158,7 @@ const gameReducer = createReducer(
   })
 );
 
-//Syntax updated from switch-case syntax (<= 7.x)
+// Syntax updated from switch-case syntax (<= 7.x)
 export function reducer(state, action: Action): IGameState {
   return gameReducer(state, action);
 }

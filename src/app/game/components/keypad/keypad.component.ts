@@ -11,8 +11,8 @@ import { ALPHABETS, NUMERALS } from 'src/assets/hangman';
 })
 export class KeypadComponent implements OnInit {
   @Input() isDisableAllKeys: fromGame.EndGameStatus;
-  @Input() enableNumbers: boolean = true;
-  @Input() enableAlphabet: boolean = true;
+  @Input() enableNumbers = true;
+  @Input() enableAlphabet = true;
 
   keyInputListTop: string[] = NUMERALS;
   keyInputListBottom: string[] = ALPHABETS;

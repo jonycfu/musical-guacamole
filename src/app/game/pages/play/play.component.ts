@@ -46,7 +46,7 @@ export class PlayComponent implements OnInit, OnDestroy {
         this.store.dispatch(loadWords());
       }
     });
-    //Use subscribe for method access to guess prop
+    // Use subscribe for method access to guess prop
     this.storeSub = this.store
       .pipe(select(fromGame.getGameFeatureState))
       .subscribe(
@@ -119,7 +119,7 @@ export class PlayComponent implements OnInit, OnDestroy {
     };
   }
   restartGame() {
-    //TODO: Confirm Dialog, needed!
+    // TODO: Confirm Dialog, needed!
     this.store.dispatch(restartGame());
   }
 }

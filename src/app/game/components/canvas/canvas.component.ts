@@ -22,7 +22,7 @@ export class CanvasComponent implements OnInit, AfterViewInit, OnChanges {
   canvas: ElementRef<HTMLCanvasElement>;
   ctx: CanvasRenderingContext2D;
   hangmanArray: Array<Array<any>>;
-  gallowsArray: Array<Array<Number>>;
+  gallowsArray: Array<Array<number>>;
   @Input() gameStatus: EndGameStatus;
   @Input() totalGuesses: number;
   @Input() maxGuesses: number;
@@ -54,9 +54,8 @@ export class CanvasComponent implements OnInit, AfterViewInit, OnChanges {
     if (wrongGuesses && !wrongGuesses.isFirstChange()) {
       if (wrongGuesses.currentValue > 0) {
         this.drawHangmanParts();
-      }
-      // Redraw when totalGuesses is zero (reset)
-      else if (this.totalGuesses === 0) {
+      } else if (this.totalGuesses === 0) {
+        // Redraw when totalGuesses is zero (reset)
         this.ctx.clearRect(0, 0, this.ctx.canvas.width, this.ctx.canvas.height);
         this.resetCanvas();
       }
@@ -67,20 +66,20 @@ export class CanvasComponent implements OnInit, AfterViewInit, OnChanges {
     this.ctx.beginPath();
     this.drawGallows();
   }
-  //Credit of Hangman Implementation: https://codepen.io/cathydutton/pen/ldazc
+  // Credit of Hangman Implementation: https://codepen.io/cathydutton/pen/ldazc
   drawGallows() {
     this.gallowsArray.forEach((item: Array<number>, idx) => this.draw(...item));
   }
 
-  //Uses maxGuesses and guesses to evaluate draw step
-  //Caps drawings at maxGuesses.
+  // Uses maxGuesses and guesses to evaluate draw step
+  // Caps drawings at maxGuesses.
   drawHangmanParts() {
     const guessesLeft = this.maxGuesses - this.wrongGuesses;
     if (this.wrongGuesses === 1) {
-      //first, draw head
+      // first, draw head
       this.ctx.arc(...HANGMAN.head);
     } else if (guessesLeft <= 0) {
-      //last, draw rest
+      // last, draw rest
       this.hangmanArray
         .slice(this.wrongGuesses - 1)
         .forEach((bodyPart: number[]) => this.draw(...bodyPart));

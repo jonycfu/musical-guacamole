@@ -22,7 +22,7 @@ describe('WordApiService', () => {
   afterEach(() => httpCtrl.verify());
 
   it('should be created', () => {
-    const service: WordApiService = TestBed.get(WordApiService);
-    expect(service).toBeTruthy();
+    const apiService: WordApiService = TestBed.get(WordApiService);
+    expect(apiService).toBeTruthy();
   });
 });

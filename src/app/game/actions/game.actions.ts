@@ -9,7 +9,7 @@ export enum GameActionTypes {
 
   GetSecretWord = '[Game] Get Secret Word',
 
-  SetGuess = '[Game] Set Guess', //Sets the buffer for guess before submissions
+  SetGuess = '[Game] Set Guess', // Sets the buffer for guess before submissions
   MakeGuess = '[Game] Make Guess',
 
   RestartGame = '[Game] Restart Game',
@@ -25,7 +25,7 @@ export enum GameActionTypes {
   SaveScoresFailure = '[Game] Save Scores Failure',
 }
 
-//Gameplay related
+// Gameplay related
 export const setGuess = createAction(
   GameActionTypes.SetGuess,
   props<{ charInput: string }>()

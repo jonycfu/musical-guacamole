@@ -1,15 +1,15 @@
-import { async, ComponentFixture, TestBed } from "@angular/core/testing";
-import { provideMockStore, MockStore } from "@ngrx/store/testing";
-import { CanvasComponent } from "./canvas.component";
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { provideMockStore, MockStore } from '@ngrx/store/testing';
+import { CanvasComponent } from './canvas.component';
 
-describe("CanvasComponent", () => {
+describe('CanvasComponent', () => {
   let component: CanvasComponent;
   let fixture: ComponentFixture<CanvasComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [CanvasComponent],
-      providers: [provideMockStore({})]
+      providers: [provideMockStore({})],
     }).compileComponents();
   }));
 
@@ -19,7 +19,7 @@ describe("CanvasComponent", () => {
     fixture.detectChanges();
   });
 
-  it("should create", () => {
+  it('should create', () => {
     expect(component).toBeTruthy();
   });
 });

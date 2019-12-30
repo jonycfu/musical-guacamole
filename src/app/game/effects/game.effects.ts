@@ -31,7 +31,7 @@ export class GameEffects {
             return of({
               type: GameActionTypes.LoadWordApisFailure,
               error,
-              message: `Unable to get a new word list from api. 
+              message: `Unable to get a new word list from api.
                 Have you checked if the server/endpoint is down?`,
             });
           })
@@ -91,8 +91,7 @@ export class GameEffects {
             return of({
               type: GameActionTypes.LoadScoresFailure,
               error,
-              message: `Unable to get a new score list from api. 
-              Have you checked if the server/endpoint is down?`,
+              message: `Unable to get a new score list from api. Have you checked if the server/endpoint is down?`,
             });
           })
         )
@@ -114,8 +113,7 @@ export class GameEffects {
             return of({
               type: GameActionTypes.SaveScoresFailure,
               error,
-              message: `Unable to save a new score to api. 
-              Have you checked if the server/endpoint is down?`,
+              message: `Unable to save a new score to api. Have you checked if the server/endpoint is down?`,
             });
           })
         );
