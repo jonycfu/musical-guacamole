@@ -14,17 +14,68 @@
    - **Correct guesses** will reveal all corresponding characters in the secret word. If the secret word is fully revealed, a prompt of your score will appear and a choice of submitting your name and "view high scores" is given.
    - **Wrong guesses** will cause a hangman body part to be drawn, up to a 5 attempts limit, at which point the hangman is fully drawn, and the user is no longer able to play, and prompted with a "Game Over" and a "New Game"
 
-# Getting Started
+## Getting Started
 
-## Development Lifecycle
-
-After installing your dependencies (`npm i`), there are three necessary steps:
+After installing your dependencies (`npm i`), there are two necessary steps:
 
 1. First, serve your express-api-server, run `npm run api`
 
 2. To work on the app directly, you will need to run `npm start`, which is modified for serving the Angular app which calls api calls from the Express App. Navigate to `http://localhost:4200/`.
 
-3. To have tests run during development, run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io). Newly added modules/files/dependencies may require a process restart.
+## Folder Structure Conventions
+
+For the most part, I kept the 'by-feature' folder structure as specified by Angular's Styleguide, except for a few minority files.
+
+- The project is split by big-features, angular-type artifacts, and pages.
+
+- utilizing the angular command line tool is immensely helpful in scaffolding the common boilerplates or copy-paste (assuming you understand what's created)
+
+---
+
+_This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 8.3.21._
+
+```
+./src/app
+├── app-routing.module.ts
+├── app.component.html
+├── app.component.scss
+├── app.component.spec.ts
+├── app.component.ts
+├── app.module.ts
+├── core
+│   ├── core.module.ts
+│   └── services
+├── game
+│   ├── actions
+│   ├── components
+│   ├── effects
+│   ├── game-routing.module.ts
+│   ├── game.component.html
+│   ├── game.component.scss
+│   ├── game.component.spec.ts
+│   ├── game.component.ts
+│   ├── game.guard.spec.ts
+│   ├── game.guard.ts
+│   ├── game.module.ts
+│   ├── pages
+│   └── reducers
+├── home
+│   ├── home-routing.module.ts
+│   ├── home.component.html
+│   ├── home.component.scss
+│   ├── home.component.spec.ts
+│   ├── home.component.ts
+│   ├── home.module.ts
+│   └── reducers
+├── reducers
+│   └── index.ts
+└── shared
+    ├── list
+    └── shared.module.ts
+
+13 directories, 23 files
+
+```
 
 ## Coding Guidelines
 
@@ -34,12 +85,11 @@ After installing your dependencies (`npm i`), there are three necessary steps:
 
 - Place your commits inside a branch based on branch-models (`feature/*`, `bugfix/*`, ...etc). These logical descriptions help readability of commit history and traceability.
 
-## CI - VCS, Build, Test, Deploy
+## CI - VCS, Build, Test, Deploy (Future Plans)
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
+Currently, this project uses circleci to do simple checks to make sure my code is formatted according to prescribed tslint rules.
+Prettier is also used to enforce on-save formatting to avoid lint errors after shipping.
 
 Upon every Pull-request merge, CI will also run `TsDoc` library to generate automated documentation for the annotated artifacts of the app.
 
----
-
-_This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 8.3.21._
+Due to time constraints and my lack of familiarity with NGRX testing, written spec tests were minimal.
