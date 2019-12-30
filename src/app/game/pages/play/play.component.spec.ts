@@ -10,7 +10,6 @@ import { of } from 'rxjs';
 describe('PlayComponent', () => {
   let component: PlayComponent;
   let fixture: ComponentFixture<PlayComponent>;
-  let mockService = { getData: () => {} };
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
