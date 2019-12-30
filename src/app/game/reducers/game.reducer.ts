@@ -22,11 +22,19 @@ export enum EndGameStatus {
   FAILURE = 'FAILURE',
 }
 
+export interface IScore {
+  name: string;
+  score: number;
+  datetime: Date;
+}
+
 export interface IGameState {
   error: { message: string; data: HttpErrorResponse } | null;
   maskedWordProgression: string[] | null;
   secretWord: string | null;
   wordList: Array<string>;
+  scoreList: Array<IScore>;
+  gameScore: number;
   gameOverStatus: EndGameStatus;
   charInput: string | null;
   charGuessedList: Array<string>;
@@ -46,7 +54,13 @@ export const initialState: IGameState = {
   charInput: null,
   charGuessedList: [],
   wordList: [],
+  scoreList: [
+    { name: 'Jordan Bell', score: 200, datetime: new Date() },
+    { name: 'Jack Bell', score: 300, datetime: new Date() },
+    { name: 'Jenny Bell', score: 130, datetime: new Date() },
+  ],
   gameOverStatus: EndGameStatus.INACTIVE,
+  gameScore: 0,
   wrongGuesses: 0,
   totalGuesses: 0,
   maxGuesses: 5,
@@ -59,6 +73,12 @@ const pickRandomFrom = (list: Array<any> = [], length: number = list.length) =>
 const getMaskedFormOf = (word: string): string[] =>
   word.replace(/./g, '_').split('');
 
+const getScoreBy = (totalGuesses: number, wordDifficulty: string) => {
+  const wordLengthScore = wordDifficulty.length * 75;
+  const guessScoreIndex = 10 - totalGuesses;
+  return wordLengthScore + guessScoreIndex;
+};
+
 /* Reducer */
 const gameReducer = createReducer(
   initialState,
@@ -68,6 +88,7 @@ const gameReducer = createReducer(
 
     return {
       ...state,
+      ...initialState,
       wordList: payload,
       secretWord,
       maskedWordProgression: maskedWord,
@@ -91,7 +112,7 @@ const gameReducer = createReducer(
     ) => {
       return {
         ...state,
-        charInput: '_',
+        charInput: '',
         wrongGuesses,
         maskedWordProgression,
         gameOverStatus,
@@ -109,6 +130,30 @@ const gameReducer = createReducer(
       wordList: state.wordList,
       secretWord,
       maskedWordProgression: maskedWord,
+    };
+  }),
+  on(GameActions.calcFinalScore, (state, { totalGuesses, secretWord }) => {
+    return {
+      ...state,
+      gameScore: getScoreBy(totalGuesses, secretWord),
+    };
+  }),
+  on(GameActions.loadScoresSuccess, (state, { payload }) => {
+    return {
+      ...state,
+      scoreList: [...payload, ...state.scoreList],
+    };
+  }),
+  on(GameActions.loadScoresFailure, (state, { error, message }) => {
+    return {
+      ...state,
+      error: { data: error, message },
+    };
+  }),
+  on(GameActions.saveScores, (state, scoreEntry) => {
+    return {
+      ...state,
+      scoreList: [...state.scoreList, scoreEntry],
     };
   })
 );
@@ -151,4 +196,12 @@ export const getTotalGuesses = createSelector(getGameFeatureState, state => {
 
 export const getGameOverStatus = createSelector(getGameFeatureState, state => {
   return state.game.gameOverStatus;
+});
+
+export const getFinalScore = createSelector(getGameFeatureState, state => {
+  return state.game.gameScore;
+});
+
+export const getHighScores = createSelector(getGameFeatureState, state => {
+  return state.game.scoreList;
 });

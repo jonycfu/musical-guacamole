@@ -7,7 +7,7 @@ import { map, mergeMap, catchError, tap, withLatestFrom } from 'rxjs/operators';
 import { GameActionTypes } from '../actions/game.actions';
 import { of } from 'rxjs';
 import { Router } from '@angular/router';
-import { calcFinalScore } from 'src/app/score/actions/score.actions';
+import { calcFinalScore } from 'src/app/game/actions/game.actions';
 
 @Injectable()
 export class GameEffects {
@@ -63,25 +63,63 @@ export class GameEffects {
             { gameOverStatus },
             {
               game: {
-                game: { startTime, totalGuesses, secretWord },
+                game: { totalGuesses, secretWord },
               },
             },
           ]) => {
             if (gameOverStatus === 'FAILURE') {
               this.router.navigate(['/game/defeat']);
             } else if (gameOverStatus === 'SUCCESS') {
-              console.log('calcFinalScore', {
-                startTime,
-              });
-
-              this.store.dispatch(
-                calcFinalScore({ startTime, totalGuesses, secretWord })
-              );
+              this.store.dispatch(calcFinalScore({ totalGuesses, secretWord }));
               this.router.navigate(['/game/victory']);
             }
           }
         )
       ),
     { dispatch: false }
+  );
+  getScoresList$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(GameActionTypes.LoadScores),
+      mergeMap(() =>
+        this.api.getHighScoresList().pipe(
+          map((data: any) => ({
+            type: GameActionTypes.LoadScoresSuccess,
+            ...data,
+          })),
+          catchError(error => {
+            return of({
+              type: GameActionTypes.LoadScoresFailure,
+              error,
+              message: `Unable to get a new score list from api. 
+              Have you checked if the server/endpoint is down?`,
+            });
+          })
+        )
+      )
+    )
+  );
+
+  saveScore$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(GameActionTypes.SaveScores),
+      mergeMap(({ name, score, datetime }) => {
+        return this.api.updateScoreEntries({ name, score, datetime }).pipe(
+          map((data: any) => ({
+            type: GameActionTypes.SaveScoresSuccess,
+            ...data,
+          })),
+          tap(() => this.router.navigate(['/game/scoreboard'])),
+          catchError(error => {
+            return of({
+              type: GameActionTypes.SaveScoresFailure,
+              error,
+              message: `Unable to save a new score to api. 
+              Have you checked if the server/endpoint is down?`,
+            });
+          })
+        );
+      })
+    )
   );
 }
