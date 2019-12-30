@@ -7,10 +7,6 @@ const routes: Routes = [
     loadChildren: () => import('./home/home.module').then(m => m.HomeModule),
   },
   {
-    path: 'scoreboard',
-    loadChildren: () => import('./score/score.module').then(m => m.ScoreModule),
-  },
-  {
     path: 'game',
     loadChildren: () => import('./game/game.module').then(m => m.GameModule),
   },

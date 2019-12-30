@@ -1,4 +1,4 @@
-interface IHangman {
+export interface IHangman {
   gallows: Array<Array<number>>;
   head: [number, number, number, number, number, boolean]; //tuple type
   torso: Array<number>;
@@ -9,7 +9,7 @@ interface IHangman {
 }
 export const HANGMAN: IHangman = {
   gallows: [
-    [0, 450, 450, 450],
+    [0, 350, 350, 350],
     [10, 0, 10, 450],
     [0, 5, 70, 5],
     [60, 5, 60, 15],

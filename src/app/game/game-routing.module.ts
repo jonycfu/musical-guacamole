@@ -6,6 +6,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
 import { GameComponent } from './game.component';
+import { ScoreboardComponent } from './pages/scoreboard/scoreboard.component';
 
 const routes: Routes = [
   {
@@ -18,6 +19,10 @@ const routes: Routes = [
         path: 'victory',
         canActivate: [GameGuard],
         component: VictoryComponent,
+      },
+      {
+        path: 'scoreboard',
+        component: ScoreboardComponent,
       },
     ],
   },

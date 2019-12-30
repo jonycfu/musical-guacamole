@@ -1,3 +1,4 @@
+import { SharedModule } from './../shared/shared.module';
 import { CanvasComponent } from './components/canvas/canvas.component';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -14,6 +15,7 @@ import { PlayComponent } from './pages/play/play.component';
 import { VictoryComponent } from './pages/victory/victory.component';
 import { DefeatComponent } from './pages/defeat/defeat.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { ScoreboardComponent } from './pages/scoreboard/scoreboard.component';
 
 @NgModule({
   declarations: [
@@ -23,9 +25,11 @@ import { ReactiveFormsModule } from '@angular/forms';
     PlayComponent,
     VictoryComponent,
     DefeatComponent,
+    ScoreboardComponent,
   ],
   imports: [
     CommonModule,
+    SharedModule,
     ReactiveFormsModule,
     HttpClientModule,
     GameRoutingModule,
