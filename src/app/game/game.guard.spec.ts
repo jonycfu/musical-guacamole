@@ -6,8 +6,11 @@ import { provideMockStore } from '@ngrx/store/testing';
 
 describe('GameGuard', () => {
   beforeEach(() => {
+    const initialState = {
+      gameScore: 0,
+    };
     TestBed.configureTestingModule({
-      providers: [GameGuard, provideMockStore({})],
+      providers: [GameGuard, provideMockStore({ initialState })],
       imports: [RouterTestingModule],
     });
   });

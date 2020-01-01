@@ -31,8 +31,8 @@ export class GameEffects {
             return of({
               type: GameActionTypes.LoadWordApisFailure,
               error,
-              message: `Unable to get a new word list from api.
-                Have you checked if the server/endpoint is down?`,
+              message:
+                'Unable to get a new word list from api. Have you checked if the server/endpoint is down?',
             });
           })
         )
@@ -68,10 +68,10 @@ export class GameEffects {
             },
           ]) => {
             if (gameOverStatus === 'FAILURE') {
-              this.router.navigate(['/game/defeat']);
+              return this.router.navigate(['/game/defeat']);
             } else if (gameOverStatus === 'SUCCESS') {
               this.store.dispatch(calcFinalScore({ totalGuesses, secretWord }));
-              this.router.navigate(['/game/victory']);
+              return this.router.navigate(['/game/victory']);
             }
           }
         )
