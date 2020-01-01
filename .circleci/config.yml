@@ -35,9 +35,8 @@ jobs:
           command: npm run lint
       # Test the source code
       - run:
-      # Testing commented off due to unfamiliarity with ngrxStore testBed configs
-      name: Testing
-      command: npm run test -- --no-watch --no-progress --browsers=ChromeHeadlessCI
+          name: Testing
+          command: npm run test -- --no-watch --no-progress --browsers=ChromeHeadlessCI
       # End to End test
       - run:
           name: End to End Test
