@@ -20,14 +20,7 @@ import { map, tap, take } from 'rxjs/operators';
 })
 export class GameGuard implements CanActivate {
   constructor(private store: Store<IGameState>, private router: Router) {}
-  canActivate(
-    next: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot
-  ):
-    | Observable<boolean | UrlTree>
-    | Promise<boolean | UrlTree>
-    | boolean
-    | UrlTree {
+  canActivate(): Observable<boolean | UrlTree> {
     return this.getEndGameStatus();
   }
   getEndGameStatus(): Observable<boolean> {
@@ -39,7 +32,7 @@ export class GameGuard implements CanActivate {
         } else if (status === 'FAILURE') {
           return true;
         } else {
-          this.router.navigateByUrl('/start-menu');
+          this.router.navigate(['/start-menu']);
           return false;
         }
       }),
