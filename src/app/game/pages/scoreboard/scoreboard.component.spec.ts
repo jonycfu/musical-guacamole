@@ -1,3 +1,4 @@
+import { loadScores } from './../../actions/game.actions';
 import {
   initialState,
   getHighScores,
@@ -35,5 +36,14 @@ describe('ScoreboardComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('should initialize the load score list api call OnInit', done => {
+    const spy = spyOn(store, 'dispatch');
+    component.ngOnInit();
+    fixture.detectChanges();
+
+    expect(spy).toHaveBeenCalledWith(loadScores());
+    done();
   });
 });

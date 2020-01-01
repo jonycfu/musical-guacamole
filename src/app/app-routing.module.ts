@@ -13,11 +13,11 @@ const routes: Routes = [
   {
     path: '',
     pathMatch: 'full',
-    redirectTo: 'start-menu',
+    redirectTo: '/start-menu',
   },
   {
     path: '**',
-    redirectTo: 'start-menu',
+    redirectTo: '/start-menu',
   },
 ];
 

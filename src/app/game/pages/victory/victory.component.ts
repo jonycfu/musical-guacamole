@@ -16,6 +16,7 @@ export class VictoryComponent implements OnInit, OnDestroy {
     name: new FormControl(''),
   });
   gameScore: number = null;
+  datetime: Date;
   storeSub: Subscription;
   constructor(private store: Store<fromGame.IGameState>) {}
 
@@ -25,6 +26,7 @@ export class VictoryComponent implements OnInit, OnDestroy {
       .subscribe(gameScore => {
         this.gameScore = gameScore;
       });
+    this.datetime = new Date();
   }
   ngOnDestroy() {
     this.storeSub.unsubscribe();
@@ -34,7 +36,7 @@ export class VictoryComponent implements OnInit, OnDestroy {
       saveScores({
         ...this.scoreForm.value,
         score: this.gameScore,
-        datetime: new Date(),
+        datetime: this.datetime,
       })
     );
   }

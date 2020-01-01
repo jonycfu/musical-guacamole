@@ -71,7 +71,7 @@ export class CanvasComponent implements OnInit, AfterViewInit, OnChanges {
     this.gallowsArray.forEach((item: Array<number>, idx) => this.draw(...item));
   }
 
-  // Uses maxGuesses and guesses to evaluate draw step
+  // Uses maxGuesses and wrongGuesses to evaluate draw step
   // Caps drawings at maxGuesses.
   drawHangmanParts() {
     const guessesLeft = this.maxGuesses - this.wrongGuesses;
