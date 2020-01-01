@@ -2,6 +2,8 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ListComponent } from './list.component';
+import { provideMockStore } from '@ngrx/store/testing';
+import { initialState } from 'src/app/game/reducers/game.reducer';
 
 describe('ListComponent', () => {
   let component: ListComponent;
@@ -9,8 +11,9 @@ describe('ListComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
+      providers: [provideMockStore({ initialState: { game: initialState } })],
       imports: [RouterTestingModule],
-      declarations: [ListComponent]
+      declarations: [ListComponent],
     }).compileComponents();
   }));
 
