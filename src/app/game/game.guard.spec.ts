@@ -34,8 +34,8 @@ describe('GameGuard', () => {
     spyOn(router, 'navigate');
   });
 
-  it('should exist', inject([GameGuard], (guard: GameGuard) => {
-    expect(guard).toBeTruthy();
+  it('should exist', inject([GameGuard], (gameGuard: GameGuard) => {
+    expect(gameGuard).toBeTruthy();
   }));
 
   it('should return false for INACTIVE game over statuses', () => {
