@@ -20,6 +20,12 @@ export class WordApiService {
   }
 
   public updateScoreEntries(scoreEntry): Observable<any> {
-    return this.http.put(`${API_URL}/high-scores`, scoreEntry);
+    if (scoreEntry.name && scoreEntry.datetime && scoreEntry.score) {
+      return this.http.put(`${API_URL}/high-scores`, scoreEntry);
+    } else {
+      throw new Error(
+        'Invalid score entry. Provide all props: score, name, datetime'
+      );
+    }
   }
 }
