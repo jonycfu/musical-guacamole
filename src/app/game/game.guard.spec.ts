@@ -1,4 +1,3 @@
-import { initialState } from './reducers/game.reducer';
 import { RouterTestingModule } from '@angular/router/testing';
 import { TestBed, inject } from '@angular/core/testing';
 
