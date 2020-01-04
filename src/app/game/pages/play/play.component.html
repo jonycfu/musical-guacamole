@@ -5,15 +5,18 @@
     [wrongGuesses]="wrongGuesses"
     [maxGuesses]="maxGuesses"
   ></app-canvas>
-  <section class="guess-history col-12">
-    <div>
+  <section class="guess-info d-flex justify-content-center">
+    <div *ngIf="!(errorMessage$ | async) as errorMsg" class="d-flex">
+      <span class="guess-secretword">Hint: {{ secretWord }}</span>
       <span
-        class="masked-letter"
+        class="guessed-letter"
         *ngFor="let guessedLetter of charGuessedList$ | async"
         >{{ guessedLetter }}</span
       >
     </div>
-    <p>Hint: {{ secretWord }}</p>
+    <span *ngIf="errorMessage$ | async as errorMsg" class="alert alert-danger">
+      Error Message: {{ errorMsg.message }}
+    </span>
   </section>
 </div>
 <div class="secret-info d-flex flex-column">
@@ -47,16 +50,18 @@
       </span>
     </div>
   </section>
-  <section class="main-control-area d-flex flex-wrap">
+  <section
+    class="main-control-area justify-content-center d-flex flex-wrap flex-sm-row"
+  >
     <button
-      class="main-control-btn col-6 col-md-12"
+      class="main-control-btn col-3"
       (click)="makeGuess()"
       [disabled]="!charInput || (gameOverStatus$ | async) !== 'INACTIVE'"
     >
       Make Guess
     </button>
     <button
-      class="main-control-btn col-6 col-md-12"
+      class="main-control-btn col-3"
       (click)="restartGame()"
       [disabled]="(totalGuesses$ | async) < 1"
     >
@@ -67,7 +72,9 @@
 <div class="current-game-control flex-container">
   <section class="key-input-area col-12 col-md-8">
     <app-keypad
-      [isDisableAllKeys]="(gameOverStatus$ | async) !== 'INACTIVE'"
+      [isDisableAllKeys]="
+        (errorMessage$ | async) || (gameOverStatus$ | async) !== 'INACTIVE'
+      "
     ></app-keypad>
   </section>
 </div>

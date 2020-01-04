@@ -1,13 +1,23 @@
 .hangman-area {
   margin: 2rem;
 }
-.guess-history {
+.guess-info {
   text-align: center;
+  margin-top: 1rem;
   font-size: 1.5rem;
-  padding-top: 2rem;
+
+  & .guessed-letter,
+  & .guess-secretword {
+    border-radius: 0.3rem;
+    background-color: whitesmoke;
+    padding: 1rem;
+  }
+  & .guessed-letter {
+    margin-left: 1rem;
+  }
 }
 .masked-letter-area {
-  padding: 2rem 0;
+  padding: 1rem 0;
   text-align: center;
   font-weight: bold;
   font-size: 1.7rem;
@@ -20,7 +30,6 @@
   &.lives-left-indicator,
   &.game-status-indicator {
     background: darkcyan;
-    height: 10rem;
   }
 
   .masked-letter {
@@ -31,15 +40,16 @@
 .secret-info,
 .current-game-info,
 .main-control-area {
-  display: flex;
-  flex-direction: row;
+  flex-grow: 1;
+}
 
-  & > section {
-    flex-grow: 1;
-  }
+.current-game-control {
+  background-color: lighten(darkslateblue, 50%);
+  padding: 2rem 0;
 }
 
 .main-control-area {
+  margin: 1rem 0;
   .main-control-btn {
     color: whitesmoke;
     font-weight: bold;
@@ -48,7 +58,11 @@
     border-radius: 0.3rem;
     background-color: darkslateblue;
 
+    &:first-child {
+      margin-right: 1rem;
+    }
     &:disabled {
+      opacity: 0.3;
       background-color: lighten(darkslateblue, 20%);
       cursor: not-allowed;
     }

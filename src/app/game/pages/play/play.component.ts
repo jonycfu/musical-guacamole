@@ -25,6 +25,8 @@ export class PlayComponent implements OnInit, OnDestroy {
   gameOverStatus$: Observable<fromGame.EndGameStatus> = this.store.select(
     fromGame.getGameOverStatus
   );
+  errorMessage$: Observable<any> = this.store.select(fromGame.getError);
+
   // class usage
   storeSub: Subscription;
   routeSub: Subscription;

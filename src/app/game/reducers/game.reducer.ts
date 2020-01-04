@@ -170,6 +170,10 @@ export const getSecretWord = createSelector(getGameFeatureState, state => {
   return state.game.secretWord;
 });
 
+export const getError = createSelector(getGameFeatureState, state => {
+  return state.game.error;
+});
+
 export const getMaskedWord = createSelector(getGameFeatureState, state => {
   return state.game.maskedWordProgression;
 });

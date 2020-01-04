@@ -1,19 +1,24 @@
-<h1>Hall of Fame</h1>
-<table class="table">
-  <thead class="thead-dark">
-    <tr>
-      <th>Name</th>
-      <th>Score</th>
-      <th>Date</th>
+<article class="scoreboard-area card">
+  <h1>Hall of Fame</h1>
+  <span class="alert alert-danger" *ngIf="errorMessage$ | async as error">{{
+    error.message
+  }}</span>
+  <table class="table">
+    <thead class="thead-dark">
+      <tr>
+        <th>Name</th>
+        <th>Score</th>
+        <th>Date</th>
+      </tr>
+    </thead>
+    <tr *ngFor="let entry of scoreList">
+      <td>{{ entry.name }}</td>
+      <td>{{ entry.score }}</td>
+      <td>{{ entry.datetime | date: 'medium' }}</td>
     </tr>
-  </thead>
-  <tr *ngFor="let entry of scoreList">
-    <td>{{ entry.name }}</td>
-    <td>{{ entry.score }}</td>
-    <td>{{ entry.datetime | date: 'medium' }}</td>
-  </tr>
-</table>
+  </table>
 
-<section class="d-flex justify-content-center">
-  <a class="btn btn-primary m-2" routerLink="/start-menu">Back to Menu</a>
-</section>
+  <section class="d-flex justify-content-center">
+    <a class="btn btn-primary m-2" routerLink="/start-menu">Back to Menu</a>
+  </section>
+</article>
