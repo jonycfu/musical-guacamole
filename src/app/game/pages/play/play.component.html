@@ -6,7 +6,7 @@
     [maxGuesses]="maxGuesses"
   ></app-canvas>
   <section class="guess-info d-flex justify-content-center">
-    <div *ngIf="!(errorMessage$ | async) as errorMsg" class="d-flex">
+    <div *ngIf="(errorMessage$ | async) === null" class="d-flex">
       <span class="guess-secretword">Hint: {{ secretWord }}</span>
       <span
         class="guessed-letter"
