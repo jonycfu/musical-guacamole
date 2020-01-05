@@ -1,9 +1,11 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { loadScores } from './../../actions/game.actions';
 import {
   initialState,
   getHighScores,
   IScore,
   IGameState,
+  getError,
 } from './../../reducers/game.reducer';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
@@ -17,6 +19,7 @@ describe('ScoreboardComponent', () => {
   let fixture: ComponentFixture<ScoreboardComponent>;
   let store: MockStore<IGameState>;
   let scoresListSelector: MemoizedSelector<IGameState, IScore[]>;
+  let scoresListErrorSelector: MemoizedSelector<IGameState, any>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -31,6 +34,10 @@ describe('ScoreboardComponent', () => {
     component = fixture.componentInstance;
     store = TestBed.get(Store);
     scoresListSelector = store.overrideSelector(getHighScores, []);
+    scoresListErrorSelector = store.overrideSelector(getError, {
+      message: 'error msg',
+      data: new HttpErrorResponse({}),
+    });
     fixture.detectChanges();
   });
 
