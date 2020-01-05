@@ -30,10 +30,10 @@ export class PlayComponent implements OnInit, OnDestroy {
   // class usage
   storeSub: Subscription;
   routeSub: Subscription;
-  charInput: string;
-  secretWord: string;
-  maxGuesses: number;
-  wrongGuesses: number;
+  charInput: string = '';
+  secretWord: string = '';
+  maxGuesses: number = null;
+  wrongGuesses: number = null;
   maskedWordProgression: string[];
 
   constructor(
