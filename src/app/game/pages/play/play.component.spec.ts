@@ -20,7 +20,7 @@ describe('PlayComponent', () => {
   let component: PlayComponent;
   let fixture: ComponentFixture<PlayComponent>;
   let store: MockStore<IGameState>;
-  let activatedRoute: ActivatedRouteStub = new ActivatedRouteStub({
+  const activatedRoute: ActivatedRouteStub = new ActivatedRouteStub({
     restart: true,
   });
   // let totalGuessesSelector: MemoizedSelector<IGameState, string>;
